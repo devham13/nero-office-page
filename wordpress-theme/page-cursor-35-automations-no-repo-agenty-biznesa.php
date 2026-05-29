@@ -882,7 +882,7 @@ nav[aria-label="Хлебные крошки"],
   </nav>
 
   <div class="cursor-norepo-cta-top">
-    <a class="telegram-button" href="#" rel="noopener">Telegram Nero Network</a>
+    <a class="telegram-button" href="${PRIMARY_CTA_URL}" target="_blank" rel="noopener noreferrer">Telegram</a>
   </div>
 
   <div class="cursor-norepo-hero-copy">
