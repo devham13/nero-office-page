@@ -19,6 +19,7 @@ output/
 page-*.php
 !wordpress/
 !wordpress/page-*.php
+wordpress/mu-plugins/nero-network-site-footer-inc.php
 temp_page.html
 downloaded.html
 

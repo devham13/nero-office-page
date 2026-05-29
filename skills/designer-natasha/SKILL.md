@@ -102,6 +102,8 @@ add_action('wp_head', static function () use ($page_seo_title, $page_seo_descrip
 
    Простая `div`-обёртка без `main#primary` недостаточна.
 
+   **Подвал сайта:** колонки «Ресурсы» и «Контакты» выводит **MU-plugin** `nero-network-site-footer` (`shared/nero-network-site-footer.php`) на **всех** страницах. **Не дублируй** footer в HTML лонгрида — только `get_footer()` в PHP-шаблоне.
+
    **`<canvas>`** — если hero Алины и/или блок Бориса используют canvas (часто **два разных** id).
 3. **Блоки `<script>`** — в конце HTML. Каждый `<script>` на отдельном блоке:
    - Hero Canvas engine (JS от Алины)
