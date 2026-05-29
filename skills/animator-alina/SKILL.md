@@ -137,6 +137,21 @@ Hero-блок будет публиковаться внутри PHP-шабло�
 2. **Не полагайся на тему** для классов `.fullscreen-white-office`, `.giant-seo`, `.giant-seo-sub`, `.telegram-button`, `.vl-ui-tasks`, `.vl-ui-task`, `.vl-ui-pill`. Определи их в своём `<style>`.
 3. Hero должен выглядеть правильно **даже без CSS темы Configured WordPress Theme**.
 
+### КРИТИЧНО: зоны без наложений (первый экран)
+
+**Не** клади H1, этапы (`vl-ui-tasks`) и canvas в одну точку через `position:absolute` с одинаковым `left`/`bottom` — длинный заголовок наедет на список этапов и на сцену.
+
+**Обязательная схема:**
+
+1. Секция hero — **`display: grid`** с явными областями, например: `pill | cta`, `steps | stage`, `copy` (на всю ширину).
+2. **Canvas** — `position:absolute` только в прямоугольнике `stage` (отступы `left` под колонку этапов, `bottom` под строку заголовка).
+3. **H1** — отдельная строка grid (`grid-area: copy`), `font-size: clamp(26px, 3.1vw, 46px)` максимум ~46px на desktop, `text-wrap: balance`.
+4. **Этапы** — колонка `steps`, не пересекаются с `copy` по вертикали.
+5. Пустой спейсер `hero-stage-spacer` в `grid-area: stage`, если canvas вынесен из потока.
+6. На `max-width: 900px` — стек областей: `cta → pill → stage → steps → copy`.
+
+Перед сдачей проверь на ширине 1280px и 390px: нет перекрытия текста, этапов и иллюстрации.
+
 Минимальные стили, которые ОБЯЗАТЕЛЬНО включить (адаптируй под тему):
 
 ```css

@@ -790,60 +790,71 @@ nav[aria-label="Хлебные крошки"],
 <main id="primary" class="site-main claude-opus-4-8-dynamic-workflows-dlya-biznesa-page" role="main" tabindex="-1">
 <section id="opus48-orchestra-hero" class="fullscreen-white-office opus48-orchestra-hero" aria-label="Claude Opus 4.8 и Dynamic Workflows — оркестрация субагентов">
   <style>
+    /* Hero: CSS Grid — отдельные зоны для этапов, сцены и заголовка (без наложений) */
     .opus48-orchestra-hero {
       position: relative;
       overflow: hidden;
       min-height: 100vh;
+      min-height: 100dvh;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+      grid-template-rows: auto minmax(220px, 1fr) auto;
+      grid-template-areas:
+        "pill cta"
+        "steps stage"
+        "copy copy";
+      gap: clamp(12px, 2vh, 20px) clamp(16px, 3vw, 28px);
+      padding: clamp(12px, 2.5vh, 28px) clamp(16px, 4vw, 40px) clamp(20px, 4vh, 44px);
       background: #f8fafc;
       background-image:
-        radial-gradient(circle at 50% 38%, rgba(139, 92, 246, 0.06) 0%, transparent 55%),
+        radial-gradient(circle at 62% 36%, rgba(139, 92, 246, 0.06) 0%, transparent 52%),
         linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
       background-size: auto, 48px 48px, 48px 48px;
     }
     .opus48-orchestra-hero #opus48-orchestra-hero-canvas {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+      z-index: 0;
       pointer-events: none;
+      left: clamp(280px, 30%, 340px);
+      top: clamp(64px, 11vh, 120px);
+      right: clamp(8px, 2vw, 24px);
+      bottom: clamp(200px, 30vh, 340px);
+      width: auto;
+      height: auto;
     }
-    .opus48-orchestra-hero .opus48-hero-copy {
-      position: absolute;
-      left: clamp(16px, 4vw, 56px);
-      bottom: clamp(24px, 6vh, 72px);
-      max-width: min(720px, 92vw);
+    .opus48-orchestra-hero .opus48-hero-pill {
+      grid-area: pill;
+      position: relative;
       z-index: 3;
-    }
-    .opus48-orchestra-hero .giant-seo {
-      font-size: clamp(32px, 4.6vw, 64px);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -1.5px;
-      color: #0f172a;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-self: start;
+      gap: 8px;
+      max-width: 100%;
       margin: 0;
+      transform: none;
+      left: auto;
+      top: auto;
     }
-    .opus48-orchestra-hero .giant-seo span {
-      display: block;
-      margin-top: 0.15em;
-      background: linear-gradient(90deg, #d97706, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .opus48-orchestra-hero .giant-seo-sub {
-      font-size: clamp(15px, 1.9vw, 20px);
-      line-height: 1.55;
-      color: rgba(15, 23, 42, 0.72);
-      margin: 18px 0 0;
-      max-width: 680px;
+    .opus48-orchestra-hero .opus48-hero-pill span {
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #e2e8f0;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
     .opus48-orchestra-hero .telegram-button {
-      position: absolute;
-      top: clamp(16px, 3vh, 32px);
-      right: clamp(16px, 4vw, 48px);
+      grid-area: cta;
+      position: relative;
       z-index: 4;
+      justify-self: end;
+      align-self: start;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -856,24 +867,36 @@ nav[aria-label="Хлебные крошки"],
       text-decoration: none;
       transition: transform 0.2s;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+      top: auto;
+      right: auto;
     }
     .opus48-orchestra-hero .telegram-button:hover { transform: translateY(-2px); }
     .opus48-orchestra-hero .opus48-hero-steps {
-      position: absolute;
-      left: clamp(12px, 3vw, 40px);
-      top: clamp(72px, 12vh, 140px);
+      grid-area: steps;
+      position: relative;
+      z-index: 3;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      z-index: 3;
-      max-width: 280px;
+      align-self: start;
+      max-width: 300px;
+      margin: 0;
+      top: auto;
+      left: auto;
+    }
+    .opus48-orchestra-hero .opus48-hero-stage-spacer {
+      grid-area: stage;
+      position: relative;
+      z-index: 1;
+      min-height: 0;
+      pointer-events: none;
     }
     .opus48-orchestra-hero .vl-ui-task {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 11px 16px;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.96);
       border: 1px solid #e2e8f0;
       border-radius: 14px;
       font-size: 13px;
@@ -894,44 +917,74 @@ nav[aria-label="Хлебные крошки"],
       font-weight: 800;
       flex-shrink: 0;
     }
-    .opus48-orchestra-hero .opus48-hero-pill {
-      position: absolute;
-      top: clamp(16px, 3vh, 36px);
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
+    .opus48-orchestra-hero .opus48-hero-copy {
+      grid-area: copy;
+      position: relative;
       z-index: 3;
-      max-width: 96vw;
+      align-self: end;
+      max-width: min(920px, 100%);
+      margin: 0;
+      padding: clamp(14px, 2vw, 22px) 0 0;
+      padding-right: clamp(0px, 8vw, 120px);
+      bottom: auto;
+      left: auto;
     }
-    .opus48-orchestra-hero .opus48-hero-pill span {
-      padding: 9px 16px;
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid #e2e8f0;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #334155;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    .opus48-orchestra-hero .giant-seo {
+      font-size: clamp(26px, 3.1vw, 46px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -1px;
+      color: #0f172a;
+      margin: 0;
+      text-wrap: balance;
+    }
+    .opus48-orchestra-hero .giant-seo span {
+      display: block;
+      margin-top: 0.12em;
+      background: linear-gradient(90deg, #d97706, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .opus48-orchestra-hero .giant-seo-sub {
+      font-size: clamp(14px, 1.6vw, 18px);
+      line-height: 1.55;
+      color: rgba(15, 23, 42, 0.72);
+      margin: 14px 0 0;
+      max-width: 62ch;
+      text-wrap: pretty;
     }
     @media (max-width: 900px) {
+      .opus48-orchestra-hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto minmax(200px, 1fr) auto auto;
+        grid-template-areas:
+          "cta"
+          "pill"
+          "stage"
+          "steps"
+          "copy";
+        gap: 12px;
+      }
+      .opus48-orchestra-hero #opus48-orchestra-hero-canvas {
+        left: 0;
+        top: clamp(120px, 18vh, 200px);
+        right: 0;
+        bottom: clamp(280px, 42vh, 420px);
+      }
+      .opus48-orchestra-hero .telegram-button { justify-self: stretch; text-align: center; justify-content: center; }
       .opus48-orchestra-hero .opus48-hero-steps {
-        top: auto;
-        bottom: calc(clamp(200px, 38vh, 320px));
         flex-direction: row;
         flex-wrap: wrap;
-        max-width: calc(100vw - 32px);
+        max-width: 100%;
       }
       .opus48-orchestra-hero .vl-ui-task { font-size: 11px; padding: 8px 12px; }
-      .opus48-orchestra-hero .opus48-hero-copy { bottom: clamp(16px, 4vh, 40px); }
+      .opus48-orchestra-hero .opus48-hero-copy { padding-right: 0; }
+      .opus48-orchestra-hero .giant-seo { font-size: clamp(24px, 6.5vw, 34px); }
     }
   </style>
 
   <canvas id="opus48-orchestra-hero-canvas" aria-hidden="true"></canvas>
-
-  <a class="telegram-button" href="https://t.me/neronetwork" target="_blank" rel="noopener noreferrer">Telegram Nero Network</a>
 
   <div class="opus48-hero-pill vl-ui-pill" role="list">
     <span role="listitem">Opus 4.8</span>
@@ -940,12 +993,16 @@ nav[aria-label="Хлебные крошки"],
     <span role="listitem">Make + MCP</span>
   </div>
 
+  <a class="telegram-button" href="https://t.me/neronetwork" target="_blank" rel="noopener noreferrer">Telegram Nero Network</a>
+
   <div class="opus48-hero-steps vl-ui-tasks" aria-label="Этапы оркестрации">
     <div class="vl-ui-task"><span>1</span> Kickoff workflow</div>
     <div class="vl-ui-task"><span>2</span> Параллельные субагенты</div>
     <div class="vl-ui-task"><span>3</span> Adversarial verify</div>
     <div class="vl-ui-task"><span>4</span> Merge + MCP</div>
   </div>
+
+  <div class="opus48-hero-stage-spacer" aria-hidden="true"></div>
 
   <div class="opus48-hero-copy">
     <h1 class="giant-seo">
@@ -969,9 +1026,9 @@ nav[aria-label="Хлебные крошки"],
       canvas.height = parent.clientHeight || window.innerHeight;
       cw = canvas.width;
       ch = canvas.height;
-      cx = cw / 2;
-      cy = ch * 0.42;
-      scale = cw < 768 ? cw / 520 : Math.min(cw / 1100, ch / 800) * 1.35;
+      cx = cw < 900 ? cw * 0.5 : cw * 0.62;
+      cy = ch * 0.44;
+      scale = cw < 768 ? cw / 520 : Math.min(cw / 1100, ch / 800) * 1.2;
     }
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
