@@ -153,7 +153,7 @@
 - Полоса под шапкой → **Наташа** (CSS в шаблоне) → **Юра** (перезаливка PHP).
 - Полоса под шапкой **вместе** с breadcrumbs и пустым шаблонным контейнером → сначала **Юра** (активная тема / `_wp_page_template` / кэш), потом уже **Наташа** при необходимости.
 - Hero не тот цвет / затемнили → **Алина** (источник) или **Наташа** (убрать лишние переопределения).
-- **Наложение в hero** (tasks/pills/H1 на canvas) → **Наташа**: не только `position:absolute` на весь экран. Эталон — **`shared/hero-enterprise-grid.css`**: класс `hero-enterprise-gateway`, `.hero-layout` → `.hero-content-col` + `.hero-visual-col` (canvas); `padding-top: clamp(80px, 11vh, 120px)` под sticky header. См. шаблоны KPMG / Cursor 3.5 в `wordpress-theme/`.
+- **Наложение в hero** (tasks/pills/H1 на canvas) → **Наташа**: два эталона — (A) **`shared/hero-tokops-fullscreen.css`**: canvas на весь экран, `.tokops-stages-row` сверху (`top: clamp(72px, 11vh, 120px)`), `.tokops-hero-copy` снизу слева, `.tokops-pill-tr` снизу справа — как slug `kontrol-rashodov-ai-tokenov-tokenmaxxing`; (B) **`shared/hero-enterprise-grid.css`**: split KPMG. Не класть pills по центру поверх H1.
 - Анимация как у вайбкодинга → **Алина** (доработать сцену + чеклист).
 - Блок Бориса дублирует hero / не на месте → **Борис** (логика сцены) или **Наташа** (якорь вставки).
 - Скрипты на странице текстом → **Юра** (не тот канал публикации или обёртка блока в WP).

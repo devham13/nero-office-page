@@ -1,0 +1,80 @@
+/**
+ * Hero fullscreen + layered UI (эталон Tokenmaxxing / kontrol-rashodov-ai-tokenov-tokenmaxxing).
+ * Canvas на весь экран; этапы — горизонтальная полоса под шапкой; H1 — снизу слева; pills — снизу справа.
+ *
+ * Секция: id="…-hero" class="fullscreen-white-office tokops-hero"
+ * Разметка: canvas → .vl-ui-tasks.tokops-stages-row → .tokops-hero-copy → .vl-ui-pill.tokops-pill-tr → script
+ */
+
+#REPLACE_HERO_ID.fullscreen-white-office {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#REPLACE_HERO_ID.fullscreen-white-office::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+#REPLACE_HERO_ID canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#REPLACE_HERO_ID .tokops-hero-copy {
+  position: absolute;
+  left: clamp(16px, 4vw, 56px);
+  bottom: clamp(72px, 12vh, 120px);
+  z-index: 3;
+  max-width: min(720px, 92vw);
+}
+
+#REPLACE_HERO_ID .vl-ui-tasks.tokops-stages-row {
+  position: absolute;
+  top: clamp(72px, 11vh, 120px);
+  left: clamp(16px, 4vw, 48px);
+  right: clamp(16px, 4vw, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  z-index: 3;
+  max-width: 920px;
+}
+
+#REPLACE_HERO_ID .vl-ui-pill.tokops-pill-tr {
+  position: absolute;
+  right: clamp(16px, 4vw, 48px);
+  bottom: clamp(24px, 5vh, 48px);
+  left: auto;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 3;
+}
+
+@media (max-width: 900px) {
+  #REPLACE_HERO_ID .tokops-hero-copy {
+    bottom: auto;
+    top: clamp(200px, 38vh, 280px);
+  }
+  #REPLACE_HERO_ID .vl-ui-pill.tokops-pill-tr {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 55vw;
+  }
+}
