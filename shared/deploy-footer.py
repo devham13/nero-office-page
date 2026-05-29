@@ -16,9 +16,12 @@ def main() -> int:
     remote_site_root = require_credential("REMOTE_SITE_ROOT").rstrip("/")
     mu_dir = f"{remote_site_root}/wp-content/mu-plugins"
 
+    inc_local = project_root / "wordpress/mu-plugins/nero-network-site-footer-inc.php"
+    inc_local.write_bytes((project_root / "shared/nero-network-site-footer.php").read_bytes())
+
     files = (
         ("nero-network-site-footer.php", project_root / "wordpress/mu-plugins/nero-network-site-footer.php"),
-        ("nero-network-site-footer-inc.php", project_root / "wordpress/mu-plugins/nero-network-site-footer-inc.php"),
+        ("nero-network-site-footer-inc.php", inc_local),
     )
 
     ssh = connect_ssh()
