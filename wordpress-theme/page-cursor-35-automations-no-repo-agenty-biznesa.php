@@ -717,14 +717,7 @@ nav[aria-label="Хлебные крошки"],
   pointer-events: none;
   opacity: 0.55;
 }
-.hero-enterprise-gateway #cursor-35-norepo-signal-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
+/* canvas sizing: see shared/hero-enterprise-grid.css (.hero-visual-col canvas) */
 .hero-enterprise-gateway .hero-copy-block,
 .hero-enterprise-gateway .vl-ui-tasks,
 .hero-enterprise-gateway .vl-ui-pill {

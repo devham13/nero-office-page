@@ -1,7 +1,9 @@
 /**
- * Hero grid layout (эталон KPMG / Cursor 3.5).
- * Подключать в page-{slug}.php для страниц с Canvas-hero Алины.
- * Секция: id="…-hero" class="hero-enterprise-gateway fullscreen-white-office"
+ * Hero enterprise-gateway — заголовок слева, canvas в карточке справа.
+ * Эталон: cursor-35-automations, kpmg-claude-vnedrenie-ai-276-tysyach.
+ *
+ * В page-{slug}.php: замените #REPLACE_HERO_ID на id секции (например #hero-tokenops).
+ * Добавьте селектор для canvas: .hero-enterprise-gateway #your-canvas-id { … } (см. hero-enterprise-gateway-layout.md).
  */
 
 #REPLACE_HERO_ID.hero-enterprise-gateway {
@@ -14,7 +16,7 @@
   flex-direction: column;
 }
 
-#REPLACE_HERO_ID .hero-layout {
+.hero-enterprise-gateway .hero-layout {
   flex: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
@@ -28,14 +30,14 @@
   z-index: 2;
 }
 
-#REPLACE_HERO_ID .hero-content-col {
+.hero-enterprise-gateway .hero-content-col {
   display: flex;
   flex-direction: column;
   gap: clamp(16px, 2.5vh, 24px);
   min-width: 0;
 }
 
-#REPLACE_HERO_ID .hero-visual-col {
+.hero-enterprise-gateway .hero-visual-col {
   position: relative;
   min-height: min(480px, 52vh);
   border-radius: 24px;
@@ -45,14 +47,19 @@
   box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
 }
 
-#REPLACE_HERO_ID .hero-visual-col .hero-grid-bg {
+.hero-enterprise-gateway .hero-visual-col .hero-grid-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
   pointer-events: none;
+  opacity: 0.55;
 }
 
-#REPLACE_HERO_ID .hero-visual-col canvas {
+.hero-enterprise-gateway .hero-visual-col canvas {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -61,9 +68,9 @@
   pointer-events: none;
 }
 
-#REPLACE_HERO_ID .hero-copy-block,
-#REPLACE_HERO_ID .vl-ui-tasks,
-#REPLACE_HERO_ID .vl-ui-pill {
+.hero-enterprise-gateway .hero-copy-block,
+.hero-enterprise-gateway .vl-ui-tasks,
+.hero-enterprise-gateway .vl-ui-pill {
   position: relative;
   left: auto;
   right: auto;
@@ -73,21 +80,28 @@
   transform: none;
 }
 
+.hero-enterprise-gateway .hero-copy-block {
+  z-index: auto;
+}
+
 @media (max-width: 900px) {
   #REPLACE_HERO_ID.hero-enterprise-gateway {
     min-height: auto;
     padding-top: clamp(88px, 14vw, 112px);
   }
-  #REPLACE_HERO_ID .hero-layout {
+
+  .hero-enterprise-gateway .hero-layout {
     grid-template-columns: 1fr;
     gap: 20px;
     padding-bottom: 32px;
   }
-  #REPLACE_HERO_ID .hero-visual-col {
+
+  .hero-enterprise-gateway .hero-visual-col {
     order: 2;
     min-height: min(280px, 38vh);
   }
-  #REPLACE_HERO_ID .hero-content-col {
+
+  .hero-enterprise-gateway .hero-content-col {
     order: 1;
   }
 }

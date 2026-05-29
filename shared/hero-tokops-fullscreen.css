@@ -1,5 +1,6 @@
 /**
- * Hero fullscreen + layered UI (эталон Tokenmaxxing / kontrol-rashodov-ai-tokenov-tokenmaxxing).
+ * @deprecated Используйте shared/hero-enterprise-grid.css + hero-enterprise-gateway-layout.md
+ * Hero fullscreen + layered UI (старый Tokenmaxxing до 2026-05).
  * Canvas на весь экран; этапы — горизонтальная полоса под шапкой; H1 — снизу слева; pills — снизу справа.
  *
  * Секция: id="…-hero" class="fullscreen-white-office tokops-hero"
