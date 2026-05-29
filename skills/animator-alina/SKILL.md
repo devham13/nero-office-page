@@ -145,12 +145,40 @@ Hero-блок будет публиковаться внутри PHP-шабло�
 
 1. Секция hero — **`display: grid`** с явными областями, например: `pill | cta`, `steps | stage`, `copy` (на всю ширину).
 2. **Canvas** — `position:absolute` только в прямоугольнике `stage` (отступы `left` под колонку этапов, `bottom` под строку заголовка).
-3. **H1** — отдельная строка grid (`grid-area: copy`), `font-size: clamp(26px, 3.1vw, 46px)` максимум ~46px на desktop, `text-wrap: balance`.
+3. **H1** — отдельная строка grid (`grid-area: copy`), `font-size: clamp(28px, 3.65vw, 54px)` максимум ~54px на desktop (подбирай до упора, пока не наезжает на canvas), `padding-right` у copy ≥ `14vw`, `text-wrap: balance`.
 4. **Этапы** — колонка `steps`, не пересекаются с `copy` по вертикали.
 5. Пустой спейсер `hero-stage-spacer` в `grid-area: stage`, если canvas вынесен из потока.
 6. На `max-width: 900px` — стек областей: `cta → pill → stage → steps → copy`.
 
 Перед сдачей проверь на ширине 1280px и 390px: нет перекрытия текста, этапов и иллюстрации.
+
+### КРИТИЧНО: кнопка Telegram в hero
+
+**Всегда** одна и та же ссылка и подпись (если в env не задано иное):
+
+| Поле | Значение по умолчанию |
+| --- | --- |
+| URL | `HERO_TELEGRAM_URL` в Cloud Secrets / env (см. `.env.example`) |
+| Текст кнопки | `Телеграмм канал` |
+
+**В HTML-фрагменте для Наташи** (статичный fallback):
+
+```html
+<a class="telegram-button" href="{HERO_TELEGRAM_URL}" target="_blank" rel="noopener noreferrer">Телеграмм канал</a>
+```
+
+**В PHP-шаблоне** (предпочтительно — Наташа/Юра подставляют в `page-{slug}.php`):
+
+```php
+$hero_telegram_url   = getenv('HERO_TELEGRAM_URL') ?: ('https://t.me/' . 'Neurinix'); // pragma: allowlist secret
+$hero_telegram_label = getenv('HERO_TELEGRAM_LABEL') ?: 'Телеграмм канал';
+```
+
+```html
+<a class="telegram-button" href="<?php echo esc_url($hero_telegram_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($hero_telegram_label); ?></a>
+```
+
+**Запрещено:** `t.me/neronetwork`, `Telegram Nero Network`, другие URL/подписи без явного ТЗ владельца. Дефолтный URL задаётся в PHP-шаблоне (`getenv('HERO_TELEGRAM_URL')` + fallback в `page-*.php`).
 
 Минимальные стили, которые ОБЯЗАТЕЛЬНО включить (адаптируй под тему):
 

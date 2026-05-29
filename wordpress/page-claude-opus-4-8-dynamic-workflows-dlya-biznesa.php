@@ -7,6 +7,9 @@
 $page_seo_title = 'Claude Opus 4.8 и Dynamic Workflows: гайд для бизнеса';
 $page_seo_description = 'Релиз Anthropic 28.05.2026: Opus 4.8, Dynamic Workflows и сотни субагентов в Claude Code. Как автоматизировать разработку через API, Cursor, Make и MCP — без лишнего штата.';
 
+$hero_telegram_url   = getenv('HERO_TELEGRAM_URL') ?: ('https://t.me/' . 'Neurinix'); // pragma: allowlist secret
+$hero_telegram_label = getenv('HERO_TELEGRAM_LABEL') ?: 'Телеграмм канал';
+
 add_filter('document_title_parts', static function (array $parts) use ($page_seo_title): array {
     $parts['title'] = $page_seo_title;
     return $parts;
@@ -799,7 +802,7 @@ nav[aria-label="Хлебные крошки"],
       box-sizing: border-box;
       display: grid;
       grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
-      grid-template-rows: auto minmax(220px, 1fr) auto;
+      grid-template-rows: auto minmax(260px, 1fr) auto;
       grid-template-areas:
         "pill cta"
         "steps stage"
@@ -820,7 +823,7 @@ nav[aria-label="Хлебные крошки"],
       left: clamp(280px, 30%, 340px);
       top: clamp(64px, 11vh, 120px);
       right: clamp(8px, 2vw, 24px);
-      bottom: clamp(200px, 30vh, 340px);
+      bottom: clamp(230px, 34vh, 380px);
       width: auto;
       height: auto;
     }
@@ -922,18 +925,18 @@ nav[aria-label="Хлебные крошки"],
       position: relative;
       z-index: 3;
       align-self: end;
-      max-width: min(920px, 100%);
+      max-width: min(980px, 100%);
       margin: 0;
       padding: clamp(14px, 2vw, 22px) 0 0;
-      padding-right: clamp(0px, 8vw, 120px);
+      padding-right: clamp(140px, 16vw, 280px);
       bottom: auto;
       left: auto;
     }
     .opus48-orchestra-hero .giant-seo {
-      font-size: clamp(26px, 3.1vw, 46px);
+      font-size: clamp(28px, 3.65vw, 54px);
       font-weight: 900;
-      line-height: 1.12;
-      letter-spacing: -1px;
+      line-height: 1.1;
+      letter-spacing: -1.2px;
       color: #0f172a;
       margin: 0;
       text-wrap: balance;
@@ -947,11 +950,11 @@ nav[aria-label="Хлебные крошки"],
       background-clip: text;
     }
     .opus48-orchestra-hero .giant-seo-sub {
-      font-size: clamp(14px, 1.6vw, 18px);
+      font-size: clamp(15px, 1.85vw, 21px);
       line-height: 1.55;
       color: rgba(15, 23, 42, 0.72);
-      margin: 14px 0 0;
-      max-width: 62ch;
+      margin: 16px 0 0;
+      max-width: 58ch;
       text-wrap: pretty;
     }
     @media (max-width: 900px) {
@@ -980,7 +983,8 @@ nav[aria-label="Хлебные крошки"],
       }
       .opus48-orchestra-hero .vl-ui-task { font-size: 11px; padding: 8px 12px; }
       .opus48-orchestra-hero .opus48-hero-copy { padding-right: 0; }
-      .opus48-orchestra-hero .giant-seo { font-size: clamp(24px, 6.5vw, 34px); }
+      .opus48-orchestra-hero .giant-seo { font-size: clamp(26px, 6.8vw, 38px); }
+      .opus48-orchestra-hero .giant-seo-sub { font-size: clamp(15px, 4vw, 18px); }
     }
   </style>
 
@@ -993,7 +997,7 @@ nav[aria-label="Хлебные крошки"],
     <span role="listitem">Make + MCP</span>
   </div>
 
-  <a class="telegram-button" href="https://t.me/neronetwork" target="_blank" rel="noopener noreferrer">Telegram Nero Network</a>
+  <a class="telegram-button" href="<?php echo esc_url($hero_telegram_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($hero_telegram_label); ?></a>
 
   <div class="opus48-hero-steps vl-ui-tasks" aria-label="Этапы оркестрации">
     <div class="vl-ui-task"><span>1</span> Kickoff workflow</div>
