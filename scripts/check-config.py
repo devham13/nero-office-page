@@ -149,15 +149,18 @@ def check_ftp(config: dict[str, str]) -> CheckResult:
 
     host = config["FTP_HOST"]
     port = int(config.get("FTP_PORT") or "21")
+    theme_path = config.get("REMOTE_WP_THEMES") or "wp-content/themes"
+    if theme_path.startswith("/") and "public_html" in theme_path:
+        theme_path = theme_path.split("public_html/", 1)[-1].lstrip("/") or "wp-content/themes"
     try:
         with ftplib.FTP(timeout=15) as ftp:
             ftp.connect(host, port)
             ftp.login(config["FTP_USER"], config["FTP_PASSWORD"])
             pwd = ftp.pwd()
-            theme_path = config.get("REMOTE_WP_THEMES")
             if theme_path:
                 try:
-                    ftp.cwd(theme_path)
+                    for part in theme_path.strip("/").split("/"):
+                        ftp.cwd(part)
                 except ftplib.all_errors:
                     return CheckResult("ftp", False, "connected, but REMOTE_WP_THEMES is not reachable")
             return CheckResult("ftp", True, f"connected, pwd={pwd!r}")
@@ -165,6 +168,21 @@ def check_ftp(config: dict[str, str]) -> CheckResult:
         return CheckResult("ftp", False, f"connection failed: {type(exc).__name__}")
     except (OSError, ValueError) as exc:
         return CheckResult("ftp", False, f"connection failed: {type(exc).__name__}")
+
+
+def check_host_alignment(config: dict[str, str]) -> CheckResult:
+    site_url = config.get("WP_SITE_URL") or config.get("PUBLIC_SITE_URL") or ""
+    ssh_host = config.get("SSH_HOST") or ""
+    if not site_url or not ssh_host:
+        return CheckResult("host alignment", True, "skipped")
+    site_host = site_url.replace("https://", "").replace("http://", "").strip("/").split("/")[0]
+    if ssh_host.replace(".", "").isdigit() and site_host and ssh_host != site_host:
+        return CheckResult(
+            "host alignment",
+            False,
+            f"SSH_HOST is IP ({ssh_host}); use domain {site_host!r} instead",
+        )
+    return CheckResult("host alignment", True, "SSH_HOST looks aligned with site domain")
 
 
 def check_ssh(config: dict[str, str]) -> CheckResult:
@@ -247,7 +265,7 @@ def main() -> int:
     ]
 
     if args.network:
-        results.extend([check_url(config), check_ftp(config), check_ssh(config)])
+        results.extend([check_url(config), check_host_alignment(config), check_ftp(config), check_ssh(config)])
 
     for result in results:
         print_result(result)

@@ -41,6 +41,30 @@ description: Дизайнер Наташа — полная вёрстка ло�
 - Добавь **`.reveal`** / **`.delay-*`** на ключевые блоки и **скрипт IntersectionObserver** в конце страницы (как в эталонном PHP).
 - При необходимости — **JSON-LD** (FAQPage, Article, SoftwareApplication) по содержанию страницы.
 
+## SEO в `<head>` (обязательно)
+
+**До `get_header()`** в PHP-шаблоне добавь фильтры (тема **не** выводит `post_excerpt` как meta description):
+
+```php
+$page_seo_title = '...';      // Title из handoff
+$page_seo_description = '...'; // Description из handoff
+
+add_filter('document_title_parts', static function (array $parts) use ($page_seo_title): array {
+    $parts['title'] = $page_seo_title;
+    return $parts;
+}, 20);
+
+add_action('wp_head', static function () use ($page_seo_title, $page_seo_description): void {
+    echo '<meta name="description" content="' . esc_attr($page_seo_description) . '" />' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($page_seo_title) . '" />' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr($page_seo_description) . '" />' . "\n";
+    echo '<meta property="og:url" content="' . esc_url(get_permalink()) . '" />' . "\n";
+    echo '<meta property="og:type" content="article" />' . "\n";
+}, 1);
+```
+
+Юра после публикации проверяет наличие `<meta name="description"` в live HTML.
+
 ## Субагент
 
 - Используй модель текущей сессии / наследование модели.
