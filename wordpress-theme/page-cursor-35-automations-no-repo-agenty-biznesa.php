@@ -669,10 +669,89 @@ nav[aria-label="Хлебные крошки"],
   padding-top: 0 !important;
   margin-top: 0 !important;
 }
-#cursor-norepo-hero.fullscreen-white-office {
+#cursor-norepo-hero.hero-enterprise-gateway {
   min-height: 100vh;
   min-height: 100dvh;
   position: relative;
+  padding-top: clamp(80px, 11vh, 120px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+#cursor-norepo-hero .hero-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(20px, 4vw, 48px);
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 56px) clamp(28px, 5vh, 56px);
+  position: relative;
+  z-index: 2;
+}
+#cursor-norepo-hero .hero-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vh, 24px);
+  min-width: 0;
+}
+#cursor-norepo-hero .hero-visual-col {
+  position: relative;
+  min-height: min(480px, 52vh);
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,0.92) 0%, rgba(238,242,255,0.85) 100%);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+#cursor-norepo-hero .hero-visual-col .hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  opacity: 0.55;
+}
+#cursor-norepo-hero #cursor-35-norepo-signal-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+#cursor-norepo-hero .hero-copy-block,
+#cursor-norepo-hero .vl-ui-tasks,
+#cursor-norepo-hero .vl-ui-pill {
+  position: relative;
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+  max-width: 100%;
+  transform: none;
+}
+#cursor-norepo-hero .hero-copy-block { z-index: auto; }
+@media (max-width: 900px) {
+  #cursor-norepo-hero.hero-enterprise-gateway {
+    min-height: auto;
+    padding-top: clamp(88px, 14vw, 112px);
+  }
+  #cursor-norepo-hero .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 32px;
+  }
+  #cursor-norepo-hero .hero-visual-col {
+    order: 2;
+    min-height: min(280px, 38vh);
+  }
+  #cursor-norepo-hero .hero-content-col { order: 1; }
 }
 .c35-intro-section { padding-top: 48px; padding-bottom: 40px; }
 .c35-intro-grid {
@@ -715,43 +794,16 @@ nav[aria-label="Хлебные крошки"],
 </style>
 
 <main id="primary" class="site-main cursor-35-automations-no-repo-agenty-biznesa-page" role="main" tabindex="-1">
-<section id="cursor-norepo-hero" class="fullscreen-white-office cursor-norepo-hero" aria-label="Hero: Cursor 3.5 no-repo automations">
+<section id="cursor-norepo-hero" class="hero-enterprise-gateway fullscreen-white-office cursor-norepo-hero" aria-label="Hero: Cursor 3.5 no-repo automations">
   <style>
-    #cursor-norepo-hero.fullscreen-white-office {
+    #cursor-norepo-hero.hero-enterprise-gateway.fullscreen-white-office {
       position: relative;
       overflow: hidden;
-      min-height: 100vh;
-      background: linear-gradient(165deg, #ffffff 0%, #f1f5f9 48%, #eef2ff 100%);
-    }
-    #cursor-norepo-hero.fullscreen-white-office::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      opacity: 0.55;
-    }
-    #cursor-norepo-hero .cursor-norepo-canvas-wrap {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-    #cursor-norepo-hero #cursor-35-norepo-signal-canvas {
-      display: block;
       width: 100%;
-      height: 100%;
+      background: linear-gradient(165deg, #ffffff 0%, #f1f5f9 48%, #eef2ff 100%);
+      font-family: Inter, system-ui, -apple-system, sans-serif;
     }
-    #cursor-norepo-hero .cursor-norepo-hero-copy {
-      position: absolute;
-      left: clamp(16px, 4vw, 56px);
-      bottom: clamp(24px, 6vh, 72px);
-      max-width: min(720px, 92vw);
-      z-index: 4;
-      pointer-events: none;
-    }
+    #cursor-norepo-hero .hero-copy-block { max-width: 100%; }
     #cursor-norepo-hero .giant-seo {
       font-size: clamp(32px, 4.6vw, 68px);
       font-weight: 900;
@@ -759,7 +811,6 @@ nav[aria-label="Хлебные крошки"],
       letter-spacing: -2px;
       color: #0f172a;
       margin: 0;
-      pointer-events: auto;
     }
     #cursor-norepo-hero .giant-seo span {
       display: block;
@@ -774,18 +825,12 @@ nav[aria-label="Хлебные крошки"],
       color: rgba(15, 23, 42, 0.72);
       margin-top: 18px;
       max-width: 680px;
-      pointer-events: auto;
-    }
-    #cursor-norepo-hero .cursor-norepo-cta-top {
-      position: absolute;
-      top: clamp(16px, 3vh, 40px);
-      right: clamp(16px, 4vw, 56px);
-      z-index: 4;
     }
     #cursor-norepo-hero .telegram-button {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      margin-top: 22px;
       padding: 12px 22px;
       background: #0f172a;
       color: #fff !important;
@@ -793,19 +838,14 @@ nav[aria-label="Хлебные крошки"],
       font-weight: 700;
       font-size: 14px;
       text-decoration: none;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
     }
     #cursor-norepo-hero .telegram-button:hover { transform: translateY(-2px); }
     #cursor-norepo-hero .vl-ui-tasks {
-      position: absolute;
-      left: clamp(12px, 3vw, 48px);
-      top: clamp(88px, 12vh, 160px);
       display: flex;
       flex-direction: column;
       gap: 10px;
-      z-index: 3;
-      max-width: 280px;
     }
     #cursor-norepo-hero .vl-ui-task {
       display: flex;
@@ -834,16 +874,10 @@ nav[aria-label="Хлебные крошки"],
       flex-shrink: 0;
     }
     #cursor-norepo-hero .vl-ui-pill {
-      position: absolute;
-      top: clamp(20px, 4vh, 48px);
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 10px;
-      z-index: 3;
-      max-width: 96vw;
     }
     #cursor-norepo-hero .vl-ui-pill span {
       padding: 9px 16px;
@@ -857,37 +891,38 @@ nav[aria-label="Хлебные крошки"],
     }
     @media (max-width: 900px) {
       #cursor-norepo-hero .vl-ui-tasks { display: none; }
-      #cursor-norepo-hero .cursor-norepo-hero-copy { bottom: 16px; }
     }
   </style>
 
-  <div class="cursor-norepo-canvas-wrap" aria-hidden="true">
-    <canvas id="cursor-35-norepo-signal-canvas" role="img" aria-label="Анимация: агенты мониторят Slack, Stripe и метрики без репозитория"></canvas>
-  </div>
+  <div class="hero-layout">
+    <div class="hero-content-col">
+      <nav class="vl-ui-tasks" aria-label="Этапы no-repo мониторинга">
+        <div class="vl-ui-task"><span>1</span> Webhook / cron без Git</div>
+        <div class="vl-ui-task"><span>2</span> MCP и OAuth tools</div>
+        <div class="vl-ui-task"><span>3</span> Дайджест Slack</div>
+        <div class="vl-ui-task"><span>4</span> Read-only Stripe</div>
+        <div class="vl-ui-task"><span>5</span> Broadcast + approve</div>
+      </nav>
 
-  <div class="vl-ui-pill" aria-label="Теги темы">
-    <span>No-repo</span>
-    <span>Slack digest</span>
-    <span>Stripe MRR</span>
-    <span>MCP OAuth</span>
-    <span>Agents Window</span>
-  </div>
+      <div class="hero-copy-block">
+        <h1 class="giant-seo">Cursor 3.5: автоматизации без репозитория — <span>как AI-агенты мониторят Slack, Stripe и здоровье клиентов</span></h1>
+        <p class="giant-seo-sub">Multi-repo и no-repo в Agents Window: готовые шаблоны для метрик, поддержки и финансов — и как повторить это в вашем бизнесе с Make, MCP и Cursor</p>
+        <a class="telegram-button" href="${PRIMARY_CTA_URL}" target="_blank" rel="noopener noreferrer">Telegram</a>
+      </div>
 
-  <nav class="vl-ui-tasks" aria-label="Этапы no-repo мониторинга">
-    <div class="vl-ui-task"><span>1</span> Webhook / cron без Git</div>
-    <div class="vl-ui-task"><span>2</span> MCP и OAuth tools</div>
-    <div class="vl-ui-task"><span>3</span> Дайджест Slack</div>
-    <div class="vl-ui-task"><span>4</span> Read-only Stripe</div>
-    <div class="vl-ui-task"><span>5</span> Broadcast + approve</div>
-  </nav>
+      <div class="vl-ui-pill" aria-label="Теги темы">
+        <span>No-repo</span>
+        <span>Slack digest</span>
+        <span>Stripe MRR</span>
+        <span>MCP OAuth</span>
+        <span>Agents Window</span>
+      </div>
+    </div>
 
-  <div class="cursor-norepo-cta-top">
-    <a class="telegram-button" href="${PRIMARY_CTA_URL}" target="_blank" rel="noopener noreferrer">Telegram</a>
-  </div>
-
-  <div class="cursor-norepo-hero-copy">
-    <h1 class="giant-seo">Cursor 3.5: автоматизации без репозитория — <span>как AI-агенты мониторят Slack, Stripe и здоровье клиентов</span></h1>
-    <p class="giant-seo-sub">Multi-repo и no-repo в Agents Window: готовые шаблоны для метрик, поддержки и финансов — и как повторить это в вашем бизнесе с Make, MCP и Cursor</p>
+    <div class="hero-visual-col" aria-label="Анимация: агенты мониторят Slack, Stripe и метрики без репозитория">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <canvas id="cursor-35-norepo-signal-canvas" role="img" aria-label="Анимация: агенты мониторят Slack, Stripe и метрики без репозитория"></canvas>
+    </div>
   </div>
 
   <script>

@@ -1,0 +1,93 @@
+/**
+ * Hero grid layout (эталон KPMG / Cursor 3.5).
+ * Подключать в page-{slug}.php для страниц с Canvas-hero Алины.
+ * Секция: id="…-hero" class="hero-enterprise-gateway fullscreen-white-office"
+ */
+
+#REPLACE_HERO_ID.hero-enterprise-gateway {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  padding-top: clamp(80px, 11vh, 120px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+#REPLACE_HERO_ID .hero-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(20px, 4vw, 48px);
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 56px) clamp(28px, 5vh, 56px);
+  position: relative;
+  z-index: 2;
+}
+
+#REPLACE_HERO_ID .hero-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vh, 24px);
+  min-width: 0;
+}
+
+#REPLACE_HERO_ID .hero-visual-col {
+  position: relative;
+  min-height: min(480px, 52vh);
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(238, 242, 255, 0.85) 100%);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+#REPLACE_HERO_ID .hero-visual-col .hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#REPLACE_HERO_ID .hero-visual-col canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#REPLACE_HERO_ID .hero-copy-block,
+#REPLACE_HERO_ID .vl-ui-tasks,
+#REPLACE_HERO_ID .vl-ui-pill {
+  position: relative;
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+  max-width: 100%;
+  transform: none;
+}
+
+@media (max-width: 900px) {
+  #REPLACE_HERO_ID.hero-enterprise-gateway {
+    min-height: auto;
+    padding-top: clamp(88px, 14vw, 112px);
+  }
+  #REPLACE_HERO_ID .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 32px;
+  }
+  #REPLACE_HERO_ID .hero-visual-col {
+    order: 2;
+    min-height: min(280px, 38vh);
+  }
+  #REPLACE_HERO_ID .hero-content-col {
+    order: 1;
+  }
+}
