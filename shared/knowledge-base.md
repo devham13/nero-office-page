@@ -55,6 +55,6 @@
 
 _Ниже — черновик для обмена между агентами; при необходимости обновляй._
 
-- **Последняя тема страницы:**
-- **Согласованный целевой объём (знаки):**
-- **Заметки для следующего шага:**
+- **Последняя тема страницы:** Claude for Small Business — 15 AI-workflow, MCP; slug `claude-dlya-malogo-biznesa-ai-avtomatizaciya-workflow`
+- **Согласованный целевой объём (знаки):** лонгрид ~19 700 (опубликован 2026-05-30)
+- **Заметки для следующего шага:** опубликовано ({PUBLIC_SITE_URL}/claude-dlya-malogo-biznesa-ai-avtomatizaciya-workflow/); QA: skip-link `#main` → `#primary`; SEO: усилить primary в сниппете, FAQPage JSON-LD, og:image
