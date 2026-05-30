@@ -731,6 +731,7 @@ nav[aria-label="Хлебные крошки"],
 </style>
 
 <main id="primary" class="site-main ai-finops-kontrol-rashodov-tokeny-biznes-page" role="main" tabindex="-1">
+<span id="main" tabindex="-1" class="screen-reader-text" aria-hidden="true"></span>
 
 <section id="finops-command-center" class="fullscreen-white-office finops-hero-shell" aria-label="AI FinOps hero">
 <style>
