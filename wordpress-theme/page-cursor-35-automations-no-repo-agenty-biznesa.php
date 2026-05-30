@@ -20,11 +20,7 @@ add_action('wp_head', static function () use ($page_seo_title, $page_seo_descrip
     echo '<meta property="og:type" content="article" />' . "\n";
 }, 1);
 
-require_once __DIR__ . '/nero-ai-header.php';
-nero_ai_header_register();
-
 get_header();
-nero_ai_header_render();
 ?>
 
 <style>
