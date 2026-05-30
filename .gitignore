@@ -21,6 +21,9 @@ page-*.php
 !wordpress/page-*.php
 !wordpress-theme/
 !wordpress-theme/page-*.php
+!wordpress-theme/nero-ai-header.php
+!wordpress-theme/nero-ai-header.css
+!wordpress-theme/nero-ai-header.js
 temp_page.html
 downloaded.html
 

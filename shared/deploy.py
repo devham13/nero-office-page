@@ -106,6 +106,17 @@ def resolve_theme_directory(ssh: paramiko.SSHClient, remote_site_root: str) -> s
     return f"{remote_site_root.rstrip('/')}/{remote_themes.strip('/')}/{theme_slug}"
 
 
+def upload_theme_header_assets(ssh: paramiko.SSHClient, theme_dir: str, local_template: Path) -> None:
+    """Upload shared nero-ai-header assets next to page templates."""
+    theme_local = local_template.parent
+    for name in ("nero-ai-header.php", "nero-ai-header.css", "nero-ai-header.js"):
+        asset = theme_local / name
+        if asset.is_file():
+            remote_asset = f"{theme_dir.rstrip('/')}/{name}"
+            print(f"Uploading header asset: {remote_asset}")
+            upload_via_sftp(ssh, asset, remote_asset)
+
+
 def upload_via_sftp(ssh: paramiko.SSHClient, local_path: Path, remote_file: str) -> None:
     remote_dir = str(Path(remote_file).parent)
     run_remote(ssh, f"mkdir -p {shlex.quote(remote_dir)}")
@@ -214,6 +225,7 @@ def main() -> int:
 
         print(f"Uploading via SFTP to {remote_file}...")
         upload_via_sftp(ssh, local_path, remote_file)
+        upload_theme_header_assets(ssh, theme_dir, local_path)
 
         create_or_update_page(ssh, remote_site_root, slug, args.title, args.description)
 
