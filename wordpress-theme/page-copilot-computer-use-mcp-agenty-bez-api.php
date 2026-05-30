@@ -2005,7 +2005,7 @@ nav[aria-label="Хлебные крошки"],
       <h3 id="cta-primary-audit-title" class="ym-section-title" style="font-size: clamp(22px, 3vw, 28px); text-align: left; margin-bottom: 12px;">Аудит процесса «без API» под ваш стек</h3>
       <p style="margin: 0 0 20px; color: var(--ym-text); line-height: 1.6;">Разберём один процесс: где хватит <strong>MCP</strong>, где нужен UI-агент или browser automation, где обязателен <strong>human-in-the-loop</strong>. Пилот в периметре РФ — без обязательного M365.</p>
       <div class="ym-btn-group" style="justify-content: flex-start;">
-        <a class="ym-btn ym-btn-primary" href="${PRIMARY_CTA_URL}" target="_blank" rel="noopener noreferrer"><span>${PRIMARY_CTA_LABEL}</span></a>
+        <a class="ym-btn ym-btn-primary" href="https://t.me/neronetwork" target="_blank" rel="noopener noreferrer"><span>Аудит процесса в Telegram →</span></a>
       </div>
     </div>
   </div>
@@ -2183,7 +2183,7 @@ nav[aria-label="Хлебные крошки"],
     <div class="ym-card" style="padding: clamp(24px, 3vw, 32px); background: var(--ym-bg);">
       <h3 id="cta-secondary-training-title" style="font-size: 20px; font-weight: 700; margin: 0 0 10px; color: var(--ym-heading);">Освоить Make, Cursor и MCP на практике</h3>
       <p style="margin: 0 0 16px; color: var(--ym-text); line-height: 1.6;">Если команда хочет не только заказать внедрение, но и <strong>внедрение ai агентов</strong> своими силами — начните с обучающей программы по автоматизации и no-code.</p>
-      <p style="margin: 0;"><a class="ym-btn ym-btn-secondary" href="${SECONDARY_CTA_URL}" target="_blank" rel="noopener noreferrer">${SECONDARY_CTA_LABEL}</a></p>
+      <p style="margin: 0;"><a class="ym-btn ym-btn-secondary" href="https://t.me/neronetwork" target="_blank" rel="noopener noreferrer">Обучение и внедрение в Telegram →</a></p>
     </div>
   </div>
 </aside>
