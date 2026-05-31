@@ -118,7 +118,16 @@ body[class*="page-template-page-"] #inner-wrap.content-area {
   margin-bottom: 0 !important;
 }
 
-/* Все варианты hero-секций */
+/* Одна прокрутка страницы (без вложенного скролла у main/hero) */
+main.site-main[class*="-page"],
+.site-main[class*="-page"] {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* Hero — без внутренней прокрутки */
 .fullscreen-white-office,
 .hero-enterprise-gateway,
 .smb-workflow-hero,
@@ -128,36 +137,103 @@ section[id$="-hero"],
 main.site-main[class*="-page"] > section:first-of-type:has(canvas) {
   position: relative !important;
   isolation: isolate !important;
-  overflow: hidden !important;
+  overflow: clip !important;
+  overflow-x: clip !important;
+  overflow-y: clip !important;
   width: 100% !important;
   max-width: none !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
+  min-height: min(100vh, 100dvh) !important;
+  max-height: none !important;
+  height: auto !important;
   z-index: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
 
-/* Canvas — под UI, над фоном секции */
-.fullscreen-white-office canvas,
-.hero-enterprise-gateway canvas,
-.smb-workflow-hero canvas,
-.finops-hero-shell canvas,
-section[id$="-hero"] canvas,
-[class*="-hero-shell"] canvas,
-.smb-hero-canvas-wrap,
-[class*="-canvas-wrap"],
-[class*="hero-canvas"] {
+/* Canvas — правая зона, текст слева не перекрывается */
+section.fullscreen-white-office > canvas,
+section[id$="-hero"] > canvas,
+.finops-hero-shell > canvas,
+.hero-enterprise-gateway > canvas,
+.fullscreen-white-office > [id*="canvas"]:not([id*="boris"]),
+.smb-workflow-hero .smb-hero-canvas-wrap,
+.smb-workflow-hero > [class*="canvas-wrap"],
+[class*="-hero-shell"] > canvas:first-of-type,
+.hero-enterprise-gateway > canvas {
   position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
+  left: 44% !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 56% !important;
   height: 100% !important;
+  inset: auto !important;
   display: block !important;
   z-index: 1 !important;
   pointer-events: none !important;
 }
-.smb-hero-canvas-wrap,
-[class*="-canvas-wrap"] {
-  z-index: 1 !important;
+
+/* Текст hero — левая колонка */
+.finops-hero-copy,
+.sf-hero-copy,
+.smb-hero-copy,
+.alice-hero-copy,
+.opus48-hero-copy,
+.hero-copy-block,
+.hero-copy-stack,
+[class*="-hero-copy"] {
+  left: clamp(16px, 3vw, 48px) !important;
+  right: auto !important;
+  max-width: min(460px, 40vw) !important;
+  width: min(460px, 40vw) !important;
+  box-sizing: border-box !important;
+  padding-right: 16px !important;
+  z-index: 6 !important;
+}
+.finops-hero-shell .giant-seo,
+.smb-workflow-hero .giant-seo,
+section[id$="-hero"] .giant-seo,
+.hero-enterprise-gateway .giant-seo,
+.fullscreen-white-office .giant-seo {
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+.finops-hero-shell .giant-seo-sub,
+.smb-workflow-hero .giant-seo-sub,
+section[id$="-hero"] .giant-seo-sub {
+  max-width: 100% !important;
+}
+
+/* Этапы слева — уже, не заходят на canvas */
+.fullscreen-white-office .vl-ui-tasks,
+.finops-hero-shell .vl-ui-tasks,
+.smb-workflow-hero .vl-ui-tasks,
+.hero-enterprise-gateway .vl-ui-tasks,
+.sf-hero-phases {
+  left: clamp(12px, 2vw, 32px) !important;
+  max-width: min(220px, 36vw) !important;
+  z-index: 4 !important;
+}
+
+@media (max-width: 960px) {
+  section.fullscreen-white-office > canvas,
+  section[id$="-hero"] > canvas,
+  .finops-hero-shell > canvas,
+  .smb-workflow-hero .smb-hero-canvas-wrap {
+    left: 0 !important;
+    width: 100% !important;
+    opacity: 0.4;
+  }
+  .finops-hero-copy,
+  .sf-hero-copy,
+  .smb-hero-copy,
+  [class*="-hero-copy"],
+  .hero-copy-block {
+    width: min(92vw, 520px) !important;
+    max-width: 92vw !important;
+  }
 }
 
 /* Типографика hero — перебивает Kadence h1 {32px} и .xxx-page span */

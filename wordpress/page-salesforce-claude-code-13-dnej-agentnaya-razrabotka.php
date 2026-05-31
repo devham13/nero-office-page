@@ -51,7 +51,8 @@ body, html {
     display: block !important;
 }
 .salesforce-claude-code-13-dnej-agentnaya-razrabotka-page {
-    overflow-x: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
 }
 
 /* METRIKA SKILL PREMIUM THEME & ANIMATIONS */
