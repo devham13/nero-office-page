@@ -183,12 +183,13 @@ body[class*="page-template-page-"] {
 section.fullscreen-white-office > canvas:not([id*="boris"]),
 .finops-hero-shell > canvas,
 .finops-hero-office > canvas,
-.hero-enterprise-gateway > canvas,
 .fullscreen-white-office.sf-hero-bridge > canvas,
 .sf-hero-bridge > canvas,
 .smb-workflow-hero .smb-hero-canvas-wrap,
 [class*="-hero-shell"] > canvas:first-of-type,
-.copilot-mcp-hero > canvas {
+.copilot-mcp-hero > canvas,
+.mcp-qc-hero-wrap > canvas,
+.alice-flash-hero > canvas {
   position: absolute !important;
   left: var(--nn-hero-canvas-left) !important;
   right: 0 !important;
@@ -231,15 +232,64 @@ section.fullscreen-white-office > canvas:not([id*="boris"]),
   min-height: min(52vh, 520px) !important;
 }
 
+/* Enterprise gateway (KPMG, Cursor, Tokenmaxxing): grid + canvas в правой карточке */
+.hero-enterprise-gateway .hero-layout {
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr) !important;
+  gap: clamp(24px, 3vw, 48px) !important;
+  align-items: center !important;
+}
+.hero-enterprise-gateway .hero-content-col {
+  min-width: 0 !important;
+  max-width: var(--nn-hero-text-max) !important;
+}
+.hero-enterprise-gateway .hero-visual-col {
+  min-height: min(480px, 52vh) !important;
+}
+.hero-enterprise-gateway .hero-visual-col canvas,
+.hero-enterprise-gateway .hero-visual-col [id*="canvas"],
+.hero-enterprise-gateway #kpmg-gateway-hero-canvas,
+.hero-enterprise-gateway #hero-tokenops-canvas,
+.hero-enterprise-gateway #cursor-35-norepo-signal-canvas {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.hero-enterprise-gateway .hero-copy-block {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  max-width: 100% !important;
+  width: auto !important;
+  z-index: 2 !important;
+}
+.hero-enterprise-gateway .vl-ui-tasks,
+.hero-enterprise-gateway .vl-ui-pill {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  max-width: 100% !important;
+}
+
 /* Текст hero — левая колонка (absolute-layout) */
 .finops-hero-copy,
 .sf-hero-copy,
 .smb-hero-copy,
 .alice-hero-copy,
+.mcp-qc-copy-block,
 .hero-copy-block,
 .hero-copy-stack,
 .copilot-mcp-hero .hero-copy-stack,
-.fullscreen-white-office:not(.opus48-orchestra-hero) [class*="-hero-copy"] {
+.fullscreen-white-office:not(.opus48-orchestra-hero):not(.hero-enterprise-gateway) [class*="-hero-copy"] {
   left: var(--nn-hero-gutter) !important;
   right: auto !important;
   max-width: var(--nn-hero-text-max) !important;
@@ -281,10 +331,9 @@ section[id$="-hero"] .giant-seo-sub,
 }
 
 /* Этапы слева — только absolute-layout hero */
-.fullscreen-white-office:not(.opus48-orchestra-hero) .vl-ui-tasks,
+.fullscreen-white-office:not(.opus48-orchestra-hero):not(.hero-enterprise-gateway) .vl-ui-tasks,
 .finops-hero-shell .vl-ui-tasks,
 .smb-workflow-hero .vl-ui-tasks,
-.hero-enterprise-gateway .vl-ui-tasks,
 .sf-hero-phases {
   left: clamp(12px, 2vw, 32px) !important;
   max-width: min(220px, 32vw) !important;
@@ -297,6 +346,22 @@ section[id$="-hero"] .giant-seo-sub,
   top: auto !important;
   transform: none !important;
   max-width: 100% !important;
+}
+.alice-flash-hero .alice-hero-stages {
+  left: var(--nn-hero-gutter) !important;
+  right: auto !important;
+  transform: none !important;
+  justify-content: flex-start !important;
+  max-width: var(--nn-hero-text-max) !important;
+}
+.alice-flash-hero .alice-hero-copy {
+  max-width: var(--nn-hero-text-max) !important;
+}
+.mcp-qc-hero-wrap .mcp-qc-copy-block {
+  max-width: var(--nn-hero-text-max) !important;
+}
+.mcp-qc-hero-wrap .giant-seo-sub {
+  max-width: 42ch !important;
 }
 
 @media (max-width: 960px) {
@@ -340,6 +405,13 @@ section[id$="-hero"]:not(.opus48-orchestra-hero) .giant-seo {
   font-weight: 800 !important;
   letter-spacing: -0.02em !important;
   text-wrap: balance;
+}
+.hero-enterprise-gateway .giant-seo,
+.mcp-qc-hero-wrap .giant-seo,
+.alice-flash-hero .giant-seo,
+.copilot-mcp-hero .giant-seo {
+  font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
+  line-height: 1.12 !important;
 }
 .giant-seo-sub,
 .fullscreen-white-office .giant-seo-sub,

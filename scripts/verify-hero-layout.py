@@ -78,10 +78,17 @@ def check_html(slug: str, html: str) -> list[str]:
         issues.append("canvas not in right zone (58% or stage)")
     if re.search(r"\.finops-hero-shell\s*\n\s*position:", html):
         issues.append("broken CSS: finops-hero-shell missing brace")
-    if "opus48-orchestra-hero" in html and re.search(
-        r"section\[id\$=\"-hero\"\]\s+\.giant-seo[^}]*68px", html
+    if re.search(r"font-size:\s*clamp\(32px,\s*4\.8vw,\s*68px\)", html):
+        issues.append("inline hero h1 still 68px")
+    if "hero-enterprise-gateway" in html and re.search(
+        r"\.hero-enterprise-gateway\s+#(?:kpmg-gateway-hero|hero-tokenops|cursor)[^{]*\{[^}]*left:\s*58%",
+        html,
+        re.DOTALL,
     ):
-        issues.append("opus hero still forced to 68px")
+        issues.append("enterprise canvas wrongly at 58% (should fill visual-col)")
+    if "hero-visual-col" in html and "left: 0 !important" not in html and "left: 0;" not in html:
+        if "hero-enterprise-gateway" in html:
+            issues.append("enterprise visual-col canvas missing left:0")
     if "overflow-x: hidden;" in html and "-page {" in html:
         if re.search(r"\.[a-z0-9-]+-page\s*\{[^}]*overflow-x:\s*hidden", html):
             issues.append("page wrapper overflow-x:hidden (double scroll risk)")

@@ -50,13 +50,23 @@ def patch_hero_canvas_block(content: str) -> str:
         content,
         flags=re.DOTALL,
     )
+    def repl_hero_id_canvas(m: re.Match[str]) -> str:
+        cid = m.group(1)
+        if any(x in cid for x in ("opus48", "orchestra")):
+            return f"{cid} {{\n{STAGE_CANVAS_CSS}\n}}"
+        if cid == "#hero-tokenops-canvas":
+            return f"{cid} {{\n{STAGE_CANVAS_CSS}\n}}"
+        return repl_id_canvas(m)
+
     content = re.sub(
         r"(#[a-z0-9-]+-hero-canvas)\s*\{[^}]*\}",
-        lambda m: (
-            f"{m.group(1)} {{\n{STAGE_CANVAS_CSS}\n}}"
-            if "opus48" in m.group(1) or "orchestra" in m.group(1)
-            else repl_id_canvas(m)
-        ),
+        repl_hero_id_canvas,
+        content,
+        flags=re.DOTALL,
+    )
+    content = re.sub(
+        r"(\.hero-enterprise-gateway\s+#[a-z0-9-]+)\s*\{[^}]*\}",
+        lambda m: f"{m.group(1)} {{\n{STAGE_CANVAS_CSS}\n}}",
         content,
         flags=re.DOTALL,
     )
@@ -117,6 +127,8 @@ def fix_broken_hero_braces(content: str) -> str:
         "smb-workflow-hero",
         "opus48-orchestra-hero",
         "finops-hero-office",
+        "mcp-qc-hero-wrap",
+        "copilot-mcp-hero",
     ):
         content = re.sub(
             rf"(\.{cls})\s*\n(\s+(?:position|overflow|min-height|display|background|flex|box-sizing):)",
@@ -136,6 +148,37 @@ def remove_smb_duplicate_hero_style(content: str) -> str:
         count=1,
         flags=re.DOTALL,
     )
+
+
+def patch_enterprise_grid(content: str) -> str:
+    if "hero-enterprise-gateway" not in content:
+        return content
+    content = re.sub(
+        r"grid-template-columns:\s*minmax\(0,\s*1fr\)\s*minmax\(0,\s*1\.05fr\)",
+        "grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr)",
+        content,
+    )
+    content = re.sub(
+        r"grid-template-columns:\s*minmax\(0,\s*1\.05fr\)\s*minmax\(0,\s*0\.95fr\)",
+        "grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr)",
+        content,
+    )
+    return content
+
+
+def patch_inline_giant_seo_font(content: str) -> str:
+    subs = [
+        (r"font-size:\s*clamp\(32px,\s*4\.8vw,\s*68px\)", "font-size: clamp(1.625rem, 3.25vw, 2.75rem)"),
+        (r"font-size:\s*clamp\(32px,\s*4\.8vw,\s*64px\)", "font-size: clamp(1.625rem, 3.25vw, 2.75rem)"),
+        (r"font-size:\s*clamp\(32px,\s*4\.2vw,\s*64px\)", "font-size: clamp(1.5rem, 2.85vw, 2.5rem)"),
+        (r"font-size:\s*clamp\(28px,\s*4\.2vw,\s*58px\)", "font-size: clamp(1.5rem, 2.85vw, 2.5rem)"),
+        (r"max-width:\s*min\(520px,\s*46vw\)", f"max-width: {HERO_COPY_MAX}"),
+        (r"max-width:\s*min\(620px,\s*[^)]+\)", "max-width: min(26rem, 38vw)"),
+        (r"max-width:\s*600px;", "max-width: min(26rem, 38vw);"),
+    ]
+    for pat, repl in subs:
+        content = re.sub(pat, repl, content)
+    return content
 
 
 def patch_opus_grid(content: str) -> str:
@@ -175,7 +218,11 @@ def patch_hero_overflow(content: str) -> str:
         r"(#finops-command-center\.finops-hero-shell)\s*\{",
         r"(\.copilot-mcp-hero)\s*\{",
         r"(\.opus48-orchestra-hero)\s*\{",
+        r"(\.mcp-qc-hero-wrap)\s*\{",
+        r"(\.copilot-mcp-hero(?:\.fullscreen-white-office)?)\s*\{",
+        r"(\.alice-flash-hero(?:\.fullscreen-white-office)?)\s*\{",
         r"(#sf-orchestration-hero\.fullscreen-white-office\.sf-hero-bridge)\s*\{",
+        r"(\.fullscreen-white-office\.mcp-qc-hero-wrap)\s*\{",
     ]
     for pat in hero_shell_patterns:
         content = re.sub(
@@ -222,6 +269,8 @@ def patch_content(content: str) -> str:
     content = patch_hero_copy_width(content)
     content = patch_hero_overflow(content)
     content = patch_opus_grid(content)
+    content = patch_enterprise_grid(content)
+    content = patch_inline_giant_seo_font(content)
     content = patch_canvas_cx(content)
     content = patch_declare_after_require(content)
     return content
