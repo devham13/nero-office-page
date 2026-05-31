@@ -19,6 +19,7 @@ output/
 page-*.php
 !wordpress/
 !wordpress/page-*.php
+!wordpress/templates/pages/page-*.php
 !wordpress/includes/
 !wordpress/includes/*.php
 temp_page.html

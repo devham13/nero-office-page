@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fix hero text/canvas overlap and remove nested scrollbars on longread pages."""
+"""DEPRECATED — use scripts/apply-longread-hero-template.py (см. shared/longread-hero-layout-system.md)."""
 
 from __future__ import annotations
 
@@ -64,6 +64,13 @@ def patch_content(content: str) -> str:
 
 
 def main() -> int:
+    if "--legacy" not in sys.argv:
+        print(
+            "❌ patch-hero-layout-scroll.py отключён. "
+            "Используйте: python3 scripts/apply-longread-hero-template.py",
+            file=sys.stderr,
+        )
+        return 2
     local_cta = ROOT / "wordpress" / "includes" / "nn-cta.php"
     ssh = connect_ssh()
     root = require_credential("REMOTE_SITE_ROOT")

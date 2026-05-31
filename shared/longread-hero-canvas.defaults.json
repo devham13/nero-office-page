@@ -1,0 +1,139 @@
+{
+  "version": 1,
+  "description": "Параметры Canvas hero и привязка slug → layout. Глобальные стили — wordpress/includes/longread-hero-layout.css через nn_longread_support_styles().",
+  "global_css": "wordpress/includes/longread-hero-layout.css",
+  "global_php": "wordpress/includes/nn-cta.php",
+  "layouts": {
+    "grid-split": {
+      "summary": "40% текст / 60% сцена; canvas inset:0 внутри .{prefix}-hero-stage",
+      "html_classes": ["fullscreen-white-office", "{wrap_class}"],
+      "grid_class": "{prefix}-hero-grid",
+      "stage_class": "{prefix}-hero-stage",
+      "main_class": "{prefix}-hero-main",
+      "canvas_resize_parent": "stage",
+      "canvas": {
+        "cx_ratio": 0.52,
+        "scale_mobile_divisor": 620,
+        "scale_desktop_base": 900,
+        "scale_desktop_height": 820,
+        "scale_multiplier": 1.05
+      },
+      "inline_css_rules": [
+        "hero shell: overflow: clip; min-height min(100vh,100dvh); padding под sticky header",
+        "grid: grid-template-columns minmax(0,0.4fr) minmax(0,0.6fr)",
+        "copy/stages/pills: position relative (не absolute на весь экран)",
+        "giant-seo: clamp(1.5rem, 2.75vw, 2.5rem) — не 68px",
+        "CTA: nn_hero_cta_buttons()"
+      ],
+      "reference_partials": [
+        "wordpress/templates/hero/grid-split.structure.partial.php",
+        "wordpress/templates/hero/grid-split.resize-js.snippet.js"
+      ],
+      "reference_pages": [
+        "wordpress/templates/pages/page-mcp-ii-agent-kontrol-kachestva-prodazh.php",
+        "wordpress/templates/pages/page-yandex-alice-ai-llm-flash-avtomatizaciya-biznesa.php"
+      ]
+    },
+    "grid-split-opus": {
+      "extends": "grid-split",
+      "summary": "Opus 4.8: .opus48-hero-body grid 40/60, canvas в .opus48-hero-stage",
+      "html_classes": ["fullscreen-white-office", "opus48-orchestra-hero"],
+      "stage_class": "opus48-hero-stage",
+      "body_class": "opus48-hero-body",
+      "canvas": {
+        "cx_ratio": 0.52,
+        "scale_multiplier": 1.05
+      },
+      "reference_partials": ["wordpress/templates/hero/grid-split-opus.structure.partial.php"]
+    },
+    "enterprise-gateway": {
+      "summary": "42/58 grid; canvas только в .hero-visual-col",
+      "html_classes": ["hero-enterprise-gateway", "fullscreen-white-office"],
+      "layout_class": "hero-layout",
+      "content_col": "hero-content-col",
+      "visual_col": "hero-visual-col",
+      "canvas_resize_parent": "visual_col",
+      "canvas": {
+        "cx_ratio": 0.55,
+        "scale_multiplier": 1.0
+      },
+      "inline_css_rules": [
+        ".hero-layout { grid 0.42fr / 0.58fr }",
+        "canvas position absolute inset 0 внутри .hero-visual-col",
+        "copy-block position relative"
+      ],
+      "reference_partials": ["wordpress/templates/hero/enterprise-gateway.structure.partial.php"]
+    },
+    "absolute-split": {
+      "summary": "Текст слева absolute; canvas справа 58% (глобальный CSS) или wrap",
+      "html_classes": ["fullscreen-white-office", "{shell_class}"],
+      "canvas_zone": "58% / 42% via --nn-hero-canvas-left",
+      "canvas_resize_parent": "section",
+      "canvas": {
+        "cx_ratio": 0.78,
+        "scale_multiplier": 1.0
+      },
+      "inline_css_rules": [
+        "НЕ inset:0 на #hero-*-canvas без .hero-stage",
+        "copy max-width min(26rem, 38vw)",
+        "shell overflow: clip"
+      ],
+      "reference_partials": ["wordpress/templates/hero/absolute-split.structure.partial.php"]
+    }
+  },
+  "pages": {
+    "mcp-ii-agent-kontrol-kachestva-prodazh": {
+      "layout": "grid-split",
+      "wrap_class": "mcp-qc-hero-wrap",
+      "prefix": "mcp-qc",
+      "canvas_id": "mcp-qc-sales-hero-canvas"
+    },
+    "yandex-alice-ai-llm-flash-avtomatizaciya-biznesa": {
+      "layout": "grid-split",
+      "wrap_class": "alice-flash-hero",
+      "prefix": "alice",
+      "canvas_id": "alice-flash-hero-canvas"
+    },
+    "claude-opus-4-8-dynamic-workflows-dlya-biznesa": {
+      "layout": "grid-split-opus",
+      "canvas_id": "opus48-orchestra-hero-canvas"
+    },
+    "kpmg-claude-vnedrenie-ai-276-tysyach": {
+      "layout": "enterprise-gateway",
+      "canvas_id": "kpmg-gateway-hero-canvas"
+    },
+    "cursor-35-automations-no-repo-agenty-biznesa": {
+      "layout": "enterprise-gateway",
+      "canvas_id": "cursor-35-norepo-signal-canvas"
+    },
+    "kontrol-rashodov-ai-tokenov-tokenmaxxing": {
+      "layout": "enterprise-gateway",
+      "canvas_id": "hero-tokenops-canvas"
+    },
+    "ai-finops-kontrol-rashodov-tokeny-biznes": {
+      "layout": "absolute-split",
+      "shell_class": "finops-hero-shell",
+      "canvas_id": "hero-finops-canvas"
+    },
+    "claude-dlya-malogo-biznesa-ai-avtomatizaciya-workflow": {
+      "layout": "absolute-split",
+      "shell_class": "smb-workflow-hero",
+      "canvas_id": "smb-workflow-hub-canvas"
+    },
+    "copilot-computer-use-mcp-agenty-bez-api": {
+      "layout": "absolute-split",
+      "shell_class": "copilot-mcp-hero",
+      "canvas_id": "hero-copilot-mcp-canvas"
+    },
+    "salesforce-claude-code-13-dnej-agentnaya-razrabotka": {
+      "layout": "absolute-split",
+      "shell_class": "sf-hero-bridge",
+      "canvas_id": "sf-orchestration-hero-canvas"
+    },
+    "kontrol-rashodov-ai-tokeny-500-mln-claude": {
+      "layout": "absolute-split",
+      "shell_class": "finops-hero-office",
+      "canvas_id": "finops-cap-hero-canvas"
+    }
+  }
+}

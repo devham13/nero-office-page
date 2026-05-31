@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Patch inline hero CSS/JS on all longread page templates (overlap + nested scroll)."""
+"""DEPRECATED — use scripts/apply-longread-hero-template.py instead.
+
+Regex-патчи inline hero больше не применяются в пайплайне.
+Источник правды: wordpress/includes/longread-hero-layout.css + структурные шаблоны
+shared/longread-hero-layout-system.md
+
+Запуск без --legacy завершится с кодом 2.
+"""
 
 from __future__ import annotations
 
@@ -277,6 +284,13 @@ def patch_content(content: str) -> str:
 
 
 def main() -> int:
+    if "--legacy" not in sys.argv:
+        print(
+            "❌ patch-hero-inline-layout.py отключён. "
+            "Используйте: python3 scripts/apply-longread-hero-template.py",
+            file=sys.stderr,
+        )
+        return 2
     local_cta = ROOT / "wordpress" / "includes" / "nn-cta.php"
     ssh = connect_ssh()
     root = require_credential("REMOTE_SITE_ROOT")

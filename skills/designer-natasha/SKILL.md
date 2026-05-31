@@ -26,6 +26,11 @@ description: Дизайнер Наташа — полная вёрстка ло�
 Затем прочитай конспект **`shared/longread-page-design-system.md`**. Визуальный ориентир: [${PUBLIC_SITE_HOST}/metrika-skill/](https://${PUBLIC_SITE_HOST}/metrika-skill/) — **та же** плотность сетки, типографика Inter, токены, карточки, bento, FAQ, «терминал», таймлайн, pill-оглавление, **scroll reveal**.
 
 - **Hero:** только блок **Алины**. Не подменяй его секцией **`.ym-hero`** из эталона Метрики.
+- **Hero layout (глобально):** в начале общего `<style>` страницы обязательно:
+  ```php
+  <?php echo nn_longread_support_styles(); ?>
+  ```
+  (файл `wordpress/includes/nn-cta.php` в теме). Не дублируй в странице правила overflow/canvas/split из **`longread-hero-layout.css`**. Не ломай разметку Алины: для MCP/Alice — **grid-split** (`wordpress/templates/hero/`, см. **`shared/longread-hero-layout-system.md`**). На прод после правок Юра/директор деплоит только **`python3 scripts/apply-longread-hero-template.py`** — не `patch-hero-inline-layout.py`.
 - **Светлый hero и контраст:** по skill Алины hero **по умолчанию светлый** (фон как у темы, тёмные H1/подзаголовок). В общем `<style>` страницы **не переопределяй** фон/типографику hero на тёмные (например не задавай `#factory { background: #0f172a }`, не навешивай светлый текст на весь hero), если только в handoff **нет явного** указания владельца на тёмный hero. Если правишь отступы у `#primary` / `.site-main` — сбрасывай только padding/margin, **не** меняя цветовую схему блока Алины.
 - **Всё ниже hero:** верстай в классах **`ym-*`** и обёртке **`{slug}-page`** (как **`metrika-skill-page`** в теме), с **`:root`** переменными; меняй **`--ym-primary` / `--ym-accent`** под тему страницы.
 - **Второй блок страницы (введение сразу после hero)** — это **первая контентная секция** внутри `<main>`, сразу за секцией Алины. Обязательный паттерн:

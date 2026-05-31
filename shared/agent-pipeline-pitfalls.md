@@ -65,7 +65,19 @@
 |-----------|----------------|
 | Визуально **как вайбкодинг**, только другие слова | Skill **animator-alina**: эталон — **каркас движка**, не макет; обязательны **новая сцена**, **новые фазы цикла**, **чеклист отличий** (≥6 строк). |
 | **Тёмный** full-screen hero без запроса | По умолчанию — **светлый фон + тёмная типографика**; тёмный hero — только если владелец **явно** попросил. |
-| Стили hero не подхватились | Весь CSS hero — **inline** в `<style>` в секции hero; не полагаться на `style.css` темы. |
+| Стили hero не подхватились | В общем `<style>` страницы первой строкой: `<?php echo nn_longread_support_styles(); ?>`; тематический CSS hero — inline в секции, **без** дублирования split/overflow/canvas из **`longread-hero-layout.css`**. |
+| **Текст на canvas** / **двойной скролл** | Выбрать layout из **`shared/longread-hero-layout-system.md`** (`grid-split` / `enterprise-gateway` / `absolute-split`). Эталоны: **`wordpress/templates/hero/`**, MCP/Alice — **`wordpress/templates/pages/`**. На прод только **`scripts/apply-longread-hero-template.py`**; **не** `patch-hero-inline-layout.py`. |
+| H1 «на весь экран» (68px) | В grid-split: `clamp(1.5rem, 2.75vw, 2.5rem)`; глобальный CSS режет legacy `68px`. |
+| Canvas `inset:0` на всю section | Только внутри **`.hero-stage`** или **`.hero-visual-col`**; иначе absolute-split + `left:58%` из global CSS. |
+
+### 6а. Hero layout (обязательно для всех лонгридов, кроме главной)
+
+| Симптом | Что делать |
+|---------|------------|
+| MCP/Alice: анимация залезает на H1 | Пересобрать hero по **`grid-split`** (эталон в `wordpress/templates/pages/page-mcp-…` / `page-yandex-alice-…`). `cx = cw * 0.52`, resize от **parent stage**. |
+| KPMG/Cursor: canvas не в правой колонке | **`enterprise-gateway`**: canvas в `.hero-visual-col`, не `left:58%` от section. |
+| FinOps/SF: двойной скролл | `overflow: clip` на shell; не `overflow:hidden` на `.site-main`; деплой **`longread-hero-layout.css`**. |
+| «Патчили скриптом — не помогло» | Regex-патчи **сняты с пайплайна**. Юра/директор: `python3 scripts/apply-longread-hero-template.py` + при необходимости полная перезаливка `page-{slug}.php` из репо. |
 
 ---
 
@@ -87,6 +99,7 @@
 |-----------|----------------|
 | Белая полоса под шапкой | См. §1 — **сброс padding-top** для `#primary` / `.site-main` в `<style>` шаблона. |
 | Hero стал **тёмным** после сборки | Не переопределять фон/текст hero глобальными правилами `{slug}-page`; hero — зона Алины. |
+| Hero: наложение / вложенный скролл | **`nn_longread_support_styles()`** в `<style>`; layout по **`longread-hero-layout-system.md`**; деплой — **`apply-longread-hero-template.py`**, не patch-скрипты. |
 | Сломанные `<script>` / `<canvas>` | Публиковать как **PHP в тему** (Юра), не через WP REST с «очисткой» HTML. |
 | Пропал **блок Бориса** или второй canvas | Проверить порядок: hero → контент → **Борис** по якорю; внизу страницы — **два** script-движка (hero + Борис), если оба блока есть. |
 | **Второй блок** (введение сразу после hero) — центр / нет ритма | Skill **designer-natasha**: текст вступления **слева**, сетка «текст + декор», акцент слева; **не** только два центрированных абзаца. См. **`longread-page-design-system.md`** §«Введение сразу после hero». |
@@ -153,7 +166,8 @@
 - Полоса под шапкой → **Наташа** (CSS в шаблоне) → **Юра** (перезаливка PHP).
 - Полоса под шапкой **вместе** с breadcrumbs и пустым шаблонным контейнером → сначала **Юра** (активная тема / `_wp_page_template` / кэш), потом уже **Наташа** при необходимости.
 - Hero не тот цвет / затемнили → **Алина** (источник) или **Наташа** (убрать лишние переопределения).
-- **Наложение в hero** (tasks/pills/H1) → **Алина/Наташа**: ≤900px CSS Grid stack; `padding-top` под sticky header; не ставить pills поверх tasks через `top: 280px`.
+- **Наложение в hero** (tasks/pills/H1) → **Алина/Наташа**: layout из **`longread-hero-layout-system.md`** (grid-split 40/60 или enterprise visual-col); ≤900px — одна колонка; `padding-top` под sticky header; деплой **`apply-longread-hero-template.py`**.
+- **Двойной скролл hero** → **Наташа/Юра**: `overflow: clip`, global CSS; не патчить `page-*.php` regex-скриптами.
 - Анимация как у вайбкодинга → **Алина** (доработать сцену + чеклист).
 - Блок Бориса дублирует hero / не на месте → **Борис** (логика сцены) или **Наташа** (якорь вставки).
 - Скрипты на странице текстом → **Юра** (не тот канал публикации или обёртка блока в WP).

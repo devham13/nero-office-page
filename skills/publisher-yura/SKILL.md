@@ -200,6 +200,16 @@ ftp.quit()
 
 WordPress REST API (`wordpress_content_blob_append` и т.д.) пропускает контент через фильтры, которые ломают `<script>`, `<canvas>`, `<style>`. **Не используй MCP KV blob flow для страниц с анимацией.**
 
+## Hero layout (лонгриды, не главная)
+
+После публикации или при правке hero/scroll на **существующих** лонгридах:
+
+1. Загрузи в тему **`includes/nn-cta.php`** и **`includes/longread-hero-layout.css`** из репозитория (команда **`python3 scripts/apply-longread-hero-template.py`**).
+2. **Не** запускай `patch-hero-inline-layout.py` / `patch-hero-layout-scroll.py` (сняты с пайплайна).
+3. Если hero пересобран Наташей/Алиной по эталону — залей целый **`page-{slug}.php`** (из `wordpress/templates/pages/` при наличии):  
+   `python3 scripts/apply-longread-hero-template.py --page {slug}`
+4. Проверка: **`python3 scripts/verify-hero-layout.py`**. Документация: **`shared/longread-hero-layout-system.md`**.
+
 ## Проверка после публикации (обязательно)
 
 1. **HTTP-проверка**: GET запрос на публичный URL → ожидаем 2xx.

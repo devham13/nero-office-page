@@ -38,6 +38,32 @@ description: Аниматор Алина — hero с Canvas: каждый раз
 
 Это согласуется с **`shared/hero-animation-reference.md`** (эталон — светлый офис) и с лонгридом ниже по странице (`ym-*`, светлый фон).
 
+## Hero layout (обязательно — без наложения и двойного скролла)
+
+Перед HTML/JS открой **`shared/longread-hero-layout-system.md`** и **`shared/longread-hero-canvas.defaults.json`**. Выбери **один** тип:
+
+| Layout | Когда | Каркас |
+|--------|-------|--------|
+| **grid-split** | MCP, Alice, плотные UI слева + сцена справа | `wordpress/templates/hero/grid-split.structure.partial.php`, эталоны `wordpress/templates/pages/page-mcp-…`, `page-yandex-alice-…` |
+| **grid-split-opus** | Opus / orchestra | `grid-split-opus.structure.partial.php` |
+| **enterprise-gateway** | KPMG, Cursor, Tokenmaxxing | `enterprise-gateway.structure.partial.php` |
+| **absolute-split** | FinOps, SMB, Copilot, Salesforce | `absolute-split.structure.partial.php` |
+
+**Запрещено в новом hero:**
+
+- `canvas` с `inset:0` на всю section без `.hero-stage` / `.hero-visual-col`;
+- copy/tasks/pills с `position:absolute` на весь viewport при layout **grid-split** / **enterprise-gateway**;
+- `overflow: hidden` на shell hero (только **`clip`**);
+- H1 `clamp(…, 68px)` — использовать размеры из эталона grid-split;
+- `resizeCanvas()` от `window` при grid-split — только от **`canvas.parentElement`** (stage).
+
+**Canvas JS (defaults):**
+
+- grid-split / opus: `cx = cw * 0.52`, `scale ≈ 1.05` — см. `grid-split.resize-js.snippet.js`;
+- absolute-split: `cx = cw * 0.78`, canvas зона 58% задаётся global CSS (Наташа подключает `nn_longread_support_styles()`).
+
+Глобальные правила split/scroll **не** копируй в hero inline — их даёт **`wordpress/includes/longread-hero-layout.css`**.
+
 ## Эталон визуала и кода
 
 **Перед любой выдачей** открой и держи под рукой **`shared/hero-engine-example.js`** — это **полный JS** эталонного движка (копия `vibecoding-engine.js` с пояснениями в шапке). Не JSON: именно **исходник**, от которого копируешь файл в тему и переписываешь сцену.
