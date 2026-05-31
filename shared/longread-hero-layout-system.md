@@ -37,7 +37,7 @@
 
 Параметры canvas: `shared/longread-hero-canvas.defaults.json`.
 
-### 1. `grid-split` (MCP, Alice)
+### 1. `grid-split` (MCP, Alice, AI FinOps)
 
 - Обёртка: `.mcp-qc-hero-wrap` / `.alice-flash-hero`
 - Сетка: `.mcp-qc-hero-grid` / `.alice-hero-grid` → `0.4fr` / `0.6fr`
@@ -56,7 +56,7 @@
 - Не позиционировать canvas от `left: 58%` относительно всей section
 - Каркас: `wordpress/templates/hero/enterprise-gateway.structure.partial.php`
 
-### 3. `absolute-split` (FinOps, SMB, Copilot, Salesforce, $500M)
+### 3. `absolute-split` (SMB, Copilot, Salesforce, $500M FinOps-office)
 
 - Shell: `.finops-hero-shell`, `.smb-workflow-hero`, `.sf-hero-bridge`, …
 - Глобальный CSS задаёт canvas **справа** (`--nn-hero-canvas-left: 58%`)

@@ -73,7 +73,12 @@ def check_html(slug: str, html: str) -> list[str]:
         or "left:58%" in html
         or "var(--nn-hero-canvas-left)" in html
         or "opus48-hero-stage" in html
+        or "finops-hero-stage" in html
+        or "mcp-qc-hero-stage" in html
+        or "alice-hero-stage" in html
     )
+    if slug == "ai-finops-kontrol-rashodov-tokeny-biznes" and "finops-hero-grid" not in html:
+        issues.append("finops hero missing grid-split (finops-hero-grid)")
     if not has_canvas_right:
         issues.append("canvas not in right zone (58% or stage)")
     if re.search(r"\.finops-hero-shell\s*\n\s*position:", html):

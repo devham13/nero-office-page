@@ -111,8 +111,9 @@
       "canvas_id": "hero-tokenops-canvas"
     },
     "ai-finops-kontrol-rashodov-tokeny-biznes": {
-      "layout": "absolute-split",
-      "shell_class": "finops-hero-shell",
+      "layout": "grid-split",
+      "wrap_class": "finops-hero-shell",
+      "prefix": "finops",
       "canvas_id": "hero-finops-canvas"
     },
     "claude-dlya-malogo-biznesa-ai-avtomatizaciya-workflow": {

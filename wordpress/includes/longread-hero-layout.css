@@ -81,11 +81,9 @@ body[class*="page-template-page-"] {
 
 /* Canvas — правая зона (полноэкранные hero; не stage/grid) */
 [id^="hero-"][id$="-canvas"],
-#hero-finops-canvas,
 #finops-cap-hero-canvas,
 #smb-workflow-hub-canvas,
 section.fullscreen-white-office > canvas:not([id*="boris"]),
-.finops-hero-shell > canvas,
 .finops-hero-office > canvas,
 .fullscreen-white-office.sf-hero-bridge > canvas,
 .sf-hero-bridge > canvas,
@@ -134,16 +132,18 @@ section.fullscreen-white-office > canvas:not([id*="boris"]),
   min-height: min(52vh, 520px) !important;
 }
 
-/* MCP + Alice: split grid (canvas в правой «сцене») */
+/* MCP + Alice + FinOps: split grid (canvas в правой «сцене») */
 .mcp-qc-hero-wrap .mcp-qc-hero-grid,
-.alice-flash-hero .alice-hero-grid {
+.alice-flash-hero .alice-hero-grid,
+.finops-hero-shell .finops-hero-grid {
   display: grid !important;
   grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr) !important;
   gap: clamp(20px, 3vw, 40px) !important;
   align-items: center !important;
 }
 .mcp-qc-hero-stage,
-.alice-flash-hero .alice-hero-stage {
+.alice-flash-hero .alice-hero-stage,
+.finops-hero-shell .finops-hero-stage {
   position: relative !important;
   min-height: min(56vh, 560px) !important;
   overflow: hidden !important;
@@ -151,7 +151,9 @@ section.fullscreen-white-office > canvas:not([id*="boris"]),
 .mcp-qc-hero-stage canvas,
 .mcp-qc-hero-stage #mcp-qc-sales-hero-canvas,
 .alice-flash-hero .alice-hero-stage canvas,
-.alice-flash-hero #alice-flash-hero-canvas {
+.alice-flash-hero #alice-flash-hero-canvas,
+.finops-hero-shell .finops-hero-stage canvas,
+.finops-hero-shell .finops-hero-stage #hero-finops-canvas {
   position: absolute !important;
   left: 0 !important;
   right: 0 !important;
@@ -164,12 +166,15 @@ section.fullscreen-white-office > canvas:not([id*="boris"]),
   pointer-events: none !important;
 }
 .mcp-qc-hero-main,
-.alice-flash-hero .alice-hero-main {
+.alice-flash-hero .alice-hero-main,
+.finops-hero-shell .finops-hero-main {
   min-width: 0 !important;
   max-width: 100% !important;
 }
 .mcp-qc-hero-wrap .mcp-qc-copy-block,
-.alice-flash-hero .alice-hero-copy {
+.alice-flash-hero .alice-hero-copy,
+.finops-hero-shell .finops-hero-copy,
+.finops-hero-shell .finops-hero-cta-wrap {
   position: relative !important;
   left: auto !important;
   top: auto !important;
@@ -178,7 +183,9 @@ section.fullscreen-white-office > canvas:not([id*="boris"]),
   width: auto !important;
 }
 .mcp-qc-hero-wrap .mcp-qc-stages-left,
-.alice-flash-hero .alice-hero-stages {
+.alice-flash-hero .alice-hero-stages,
+.finops-hero-shell .vl-ui-tasks,
+.finops-hero-shell .vl-ui-pill {
   position: relative !important;
   left: auto !important;
   top: auto !important;
