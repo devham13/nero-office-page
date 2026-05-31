@@ -118,7 +118,21 @@ body[class*="page-template-page-"] #inner-wrap.content-area {
   margin-bottom: 0 !important;
 }
 
-/* Одна прокрутка страницы (без вложенного скролла у main/hero) */
+/* Одна прокрутка: только viewport, без вложенного скролла Kadence/main/hero */
+html,
+body[class*="page-template-page-"] {
+  overflow-x: clip !important;
+  overflow-y: auto !important;
+  height: auto !important;
+}
+body[class*="page-template-page-"] #inner-wrap,
+body[class*="page-template-page-"] #inner-wrap.content-area {
+  overflow: visible !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
 main.site-main[class*="-page"],
 .site-main[class*="-page"] {
   overflow-x: clip !important;
@@ -132,7 +146,9 @@ main.site-main[class*="-page"],
 .hero-enterprise-gateway,
 .smb-workflow-hero,
 .finops-hero-shell,
+.finops-hero-office,
 [class*="-hero-shell"],
+[class*="-hero-office"],
 section[id$="-hero"],
 main.site-main[class*="-page"] > section:first-of-type:has(canvas) {
   position: relative !important;
@@ -151,27 +167,42 @@ main.site-main[class*="-page"] > section:first-of-type:has(canvas) {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
 
-/* Canvas — правая зона, текст слева не перекрывается */
+/* Canvas — правая зона (не использовать inset: auto — сбрасывает left/right) */
+[id^="hero-"][id$="-canvas"],
+#hero-finops-canvas,
+#finops-cap-hero-canvas,
+#smb-workflow-hub-canvas,
 section.fullscreen-white-office > canvas,
 section[id$="-hero"] > canvas,
 .finops-hero-shell > canvas,
+.finops-hero-office > canvas,
 .hero-enterprise-gateway > canvas,
-.fullscreen-white-office > [id*="canvas"]:not([id*="boris"]),
+.fullscreen-white-office > canvas,
+.fullscreen-white-office.sf-hero-bridge > canvas,
+.sf-hero-bridge canvas,
 .smb-workflow-hero .smb-hero-canvas-wrap,
-.smb-workflow-hero > [class*="canvas-wrap"],
+.smb-workflow-hero #smb-workflow-hub-canvas,
 [class*="-hero-shell"] > canvas:first-of-type,
-.hero-enterprise-gateway > canvas {
+.copilot-mcp-hero > canvas,
+.opus48-orchestra-hero > canvas {
   position: absolute !important;
-  left: 44% !important;
+  left: 52% !important;
   right: 0 !important;
   top: 0 !important;
   bottom: 0 !important;
-  width: 56% !important;
+  width: 48% !important;
+  max-width: 48vw !important;
   height: 100% !important;
-  inset: auto !important;
   display: block !important;
   z-index: 1 !important;
   pointer-events: none !important;
+}
+.smb-workflow-hero .smb-hero-canvas-wrap {
+  left: 52% !important;
+  right: 0 !important;
+  width: 48% !important;
+  max-width: 48vw !important;
+  height: 100% !important;
 }
 
 /* Текст hero — левая колонка */
@@ -182,13 +213,14 @@ section[id$="-hero"] > canvas,
 .opus48-hero-copy,
 .hero-copy-block,
 .hero-copy-stack,
+.copilot-mcp-hero .hero-copy-stack,
 [class*="-hero-copy"] {
   left: clamp(16px, 3vw, 48px) !important;
   right: auto !important;
-  max-width: min(460px, 40vw) !important;
-  width: min(460px, 40vw) !important;
+  max-width: min(400px, 36vw) !important;
+  width: min(400px, 36vw) !important;
   box-sizing: border-box !important;
-  padding-right: 16px !important;
+  padding-right: 20px !important;
   z-index: 6 !important;
 }
 .finops-hero-shell .giant-seo,
@@ -202,7 +234,14 @@ section[id$="-hero"] .giant-seo,
 }
 .finops-hero-shell .giant-seo-sub,
 .smb-workflow-hero .giant-seo-sub,
-section[id$="-hero"] .giant-seo-sub {
+section[id$="-hero"] .giant-seo-sub,
+.hero-enterprise-gateway .giant-seo-sub,
+.hero-copy-block .giant-seo-sub {
+  max-width: 100% !important;
+}
+.finops-hero-shell .giant-seo,
+.sf-hero-bridge .giant-seo,
+.smb-workflow-hero .giant-seo {
   max-width: 100% !important;
 }
 

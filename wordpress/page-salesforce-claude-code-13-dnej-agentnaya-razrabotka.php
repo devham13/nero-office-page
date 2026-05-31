@@ -777,7 +777,7 @@ nav[aria-label="Хлебные крошки"],
 <style>
 .fullscreen-white-office.sf-hero-bridge {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   min-height: 100vh;
   background: linear-gradient(165deg, #ffffff 0%, #f0f9ff 48%, #f8fafc 100%);
 }
