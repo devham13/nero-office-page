@@ -117,8 +117,9 @@
       "canvas_id": "hero-finops-canvas"
     },
     "claude-dlya-malogo-biznesa-ai-avtomatizaciya-workflow": {
-      "layout": "absolute-split",
-      "shell_class": "smb-workflow-hero",
+      "layout": "grid-split",
+      "wrap_class": "smb-workflow-hero",
+      "prefix": "smb",
       "canvas_id": "smb-workflow-hub-canvas"
     },
     "copilot-computer-use-mcp-agenty-bez-api": {

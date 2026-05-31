@@ -37,7 +37,7 @@
 
 Параметры canvas: `shared/longread-hero-canvas.defaults.json`.
 
-### 1. `grid-split` (MCP, Alice, AI FinOps)
+### 1. `grid-split` (MCP, Alice, AI FinOps, Claude SMB)
 
 - Обёртка: `.mcp-qc-hero-wrap` / `.alice-flash-hero`
 - Сетка: `.mcp-qc-hero-grid` / `.alice-hero-grid` → `0.4fr` / `0.6fr`
