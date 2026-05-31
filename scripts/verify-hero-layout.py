@@ -68,12 +68,20 @@ def check_html(slug: str, html: str) -> list[str]:
     if re.search(r"max-width:\s*min\(640px,\s*92vw\)", html):
         issues.append("hero copy still 640px wide")
     has_canvas_right = (
-        "left: 52% !important" in html
-        or "left: 52%;" in html
-        or "left:52%" in html
+        "left: 58% !important" in html
+        or "left: 58%;" in html
+        or "left:58%" in html
+        or "var(--nn-hero-canvas-left)" in html
+        or "opus48-hero-stage" in html
     )
     if not has_canvas_right:
-        issues.append("canvas not shifted right (52%)")
+        issues.append("canvas not in right zone (58% or stage)")
+    if re.search(r"\.finops-hero-shell\s*\n\s*position:", html):
+        issues.append("broken CSS: finops-hero-shell missing brace")
+    if "opus48-orchestra-hero" in html and re.search(
+        r"section\[id\$=\"-hero\"\]\s+\.giant-seo[^}]*68px", html
+    ):
+        issues.append("opus hero still forced to 68px")
     if "overflow-x: hidden;" in html and "-page {" in html:
         if re.search(r"\.[a-z0-9-]+-page\s*\{[^}]*overflow-x:\s*hidden", html):
             issues.append("page wrapper overflow-x:hidden (double scroll risk)")

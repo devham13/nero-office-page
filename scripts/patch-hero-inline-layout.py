@@ -14,17 +14,27 @@ from deploy import connect_ssh, resolve_theme_directory, run_remote, upload_via_
 from credentials import require_credential  # noqa: E402
 
 CANVAS_ZONE_CSS = """  position: absolute;
-  left: 52%;
+  left: 58%;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 48%;
-  max-width: 48vw;
+  width: 42%;
+  max-width: 46vw;
   height: 100%;
   z-index: 1;
   pointer-events: none;"""
 
-HERO_COPY_MAX = "min(400px, 36vw)"
+STAGE_CANVAS_CSS = """  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;"""
+
+HERO_COPY_MAX = "min(26rem, 38vw)"
 
 
 def patch_hero_canvas_block(content: str) -> str:
@@ -42,7 +52,11 @@ def patch_hero_canvas_block(content: str) -> str:
     )
     content = re.sub(
         r"(#[a-z0-9-]+-hero-canvas)\s*\{[^}]*\}",
-        repl_id_canvas,
+        lambda m: (
+            f"{m.group(1)} {{\n{STAGE_CANVAS_CSS}\n}}"
+            if "opus48" in m.group(1) or "orchestra" in m.group(1)
+            else repl_id_canvas(m)
+        ),
         content,
         flags=re.DOTALL,
     )
@@ -92,6 +106,50 @@ def patch_hero_copy_width(content: str) -> str:
         r"max-width:\s*min\(640px,\s*52vw\)",
         f"max-width: {HERO_COPY_MAX}",
         content,
+    )
+    return content
+
+
+def fix_broken_hero_braces(content: str) -> str:
+    """Восстановить { после селектора (баг overflow-патча)."""
+    for cls in (
+        "finops-hero-shell",
+        "smb-workflow-hero",
+        "opus48-orchestra-hero",
+        "finops-hero-office",
+    ):
+        content = re.sub(
+            rf"(\.{cls})\s*\n(\s+(?:position|overflow|min-height|display|background|flex|box-sizing):)",
+            r"\1 {\n\2",
+            content,
+        )
+    return content
+
+
+def remove_smb_duplicate_hero_style(content: str) -> str:
+    """Удалить обломанный дубликат <style> перед smb hero."""
+    return re.sub(
+        r"<style>\s*\.smb-workflow-hero\s*\n\s*position:[^}]+}\s*"
+        r"\.smb-workflow-hero\s+\.smb-hero-canvas-wrap\s*\{\s*position:\s*absolute;\s*left:\s*58%;\s*\n\s*}\s*",
+        "",
+        content,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def patch_opus_grid(content: str) -> str:
+    content = re.sub(
+        r"grid-template-columns:\s*minmax\(0,\s*1\.05fr\)\s*minmax\(0,\s*0\.95fr\)",
+        "grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr)",
+        content,
+    )
+    content = re.sub(
+        r"(\.opus48-orchestra-hero\s+\.opus48-hero-body)\s*\{[^}]*grid-template-columns:[^;]+;",
+        r"\1 {\n      flex: 1 1 auto;\n      display: grid;\n      grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);",
+        content,
+        count=1,
+        flags=re.DOTALL,
     )
     return content
 
@@ -157,10 +215,13 @@ def patch_canvas_cx(content: str) -> str:
 
 
 def patch_content(content: str) -> str:
+    content = fix_broken_hero_braces(content)
+    content = remove_smb_duplicate_hero_style(content)
     content = patch_page_overflow(content)
     content = patch_hero_canvas_block(content)
     content = patch_hero_copy_width(content)
     content = patch_hero_overflow(content)
+    content = patch_opus_grid(content)
     content = patch_canvas_cx(content)
     content = patch_declare_after_require(content)
     return content

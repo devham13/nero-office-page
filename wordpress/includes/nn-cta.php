@@ -167,67 +167,102 @@ main.site-main[class*="-page"] > section:first-of-type:has(canvas) {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
 
-/* Canvas — правая зона (не использовать inset: auto — сбрасывает left/right) */
+/* Токены hero (современный split: текст ~38%, сцена ~62%) */
+body[class*="page-template-page-"] {
+  --nn-hero-text-max: min(26rem, 38vw);
+  --nn-hero-gutter: clamp(20px, 4vw, 56px);
+  --nn-hero-canvas-left: 58%;
+  --nn-hero-canvas-width: 42%;
+}
+
+/* Canvas — правая зона (полноэкранные hero; не stage/grid) */
 [id^="hero-"][id$="-canvas"],
 #hero-finops-canvas,
 #finops-cap-hero-canvas,
 #smb-workflow-hub-canvas,
-section.fullscreen-white-office > canvas,
-section[id$="-hero"] > canvas,
+section.fullscreen-white-office > canvas:not([id*="boris"]),
 .finops-hero-shell > canvas,
 .finops-hero-office > canvas,
 .hero-enterprise-gateway > canvas,
-.fullscreen-white-office > canvas,
 .fullscreen-white-office.sf-hero-bridge > canvas,
-.sf-hero-bridge canvas,
+.sf-hero-bridge > canvas,
 .smb-workflow-hero .smb-hero-canvas-wrap,
-.smb-workflow-hero #smb-workflow-hub-canvas,
 [class*="-hero-shell"] > canvas:first-of-type,
-.copilot-mcp-hero > canvas,
-.opus48-orchestra-hero > canvas {
+.copilot-mcp-hero > canvas {
   position: absolute !important;
-  left: 52% !important;
+  left: var(--nn-hero-canvas-left) !important;
   right: 0 !important;
   top: 0 !important;
   bottom: 0 !important;
-  width: 48% !important;
-  max-width: 48vw !important;
+  width: var(--nn-hero-canvas-width) !important;
+  max-width: 46vw !important;
   height: 100% !important;
   display: block !important;
   z-index: 1 !important;
   pointer-events: none !important;
 }
-.smb-workflow-hero .smb-hero-canvas-wrap {
-  left: 52% !important;
+
+/* Grid/orchestra hero: canvas только внутри «сцены», не на весь экран */
+.opus48-orchestra-hero .opus48-hero-stage canvas,
+.opus48-orchestra-hero #opus48-orchestra-hero-canvas,
+[class*="-hero-stage"] canvas,
+[class*="-orchestra-hero"] [class*="-hero-stage"] canvas {
+  position: absolute !important;
+  left: 0 !important;
   right: 0 !important;
-  width: 48% !important;
-  max-width: 48vw !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
   height: 100% !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
 }
 
-/* Текст hero — левая колонка */
+.opus48-orchestra-hero .opus48-hero-body {
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr) !important;
+  gap: clamp(20px, 3vw, 40px) !important;
+  align-items: stretch !important;
+}
+.opus48-orchestra-hero .opus48-hero-main {
+  padding-right: clamp(8px, 2vw, 24px) !important;
+}
+.opus48-orchestra-hero .opus48-hero-stage {
+  min-height: min(52vh, 520px) !important;
+}
+
+/* Текст hero — левая колонка (absolute-layout) */
 .finops-hero-copy,
 .sf-hero-copy,
 .smb-hero-copy,
 .alice-hero-copy,
-.opus48-hero-copy,
 .hero-copy-block,
 .hero-copy-stack,
 .copilot-mcp-hero .hero-copy-stack,
-[class*="-hero-copy"] {
-  left: clamp(16px, 3vw, 48px) !important;
+.fullscreen-white-office:not(.opus48-orchestra-hero) [class*="-hero-copy"] {
+  left: var(--nn-hero-gutter) !important;
   right: auto !important;
-  max-width: min(400px, 36vw) !important;
-  width: min(400px, 36vw) !important;
+  max-width: var(--nn-hero-text-max) !important;
+  width: auto !important;
   box-sizing: border-box !important;
-  padding-right: 20px !important;
+  padding-right: clamp(16px, 2vw, 32px) !important;
   z-index: 6 !important;
+}
+
+/* Grid hero: copy в колонке, без absolute-ширины */
+.opus48-orchestra-hero .opus48-hero-copy,
+.opus48-orchestra-hero [class*="-hero-copy"] {
+  position: relative !important;
+  left: auto !important;
+  width: auto !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
 }
 .finops-hero-shell .giant-seo,
 .smb-workflow-hero .giant-seo,
-section[id$="-hero"] .giant-seo,
 .hero-enterprise-gateway .giant-seo,
-.fullscreen-white-office .giant-seo {
+.fullscreen-white-office:not(.opus48-orchestra-hero) .giant-seo,
+section[id$="-hero"]:not(.opus48-orchestra-hero) .giant-seo {
   max-width: 100% !important;
   word-wrap: break-word !important;
   overflow-wrap: anywhere !important;
@@ -245,15 +280,23 @@ section[id$="-hero"] .giant-seo-sub,
   max-width: 100% !important;
 }
 
-/* Этапы слева — уже, не заходят на canvas */
-.fullscreen-white-office .vl-ui-tasks,
+/* Этапы слева — только absolute-layout hero */
+.fullscreen-white-office:not(.opus48-orchestra-hero) .vl-ui-tasks,
 .finops-hero-shell .vl-ui-tasks,
 .smb-workflow-hero .vl-ui-tasks,
 .hero-enterprise-gateway .vl-ui-tasks,
 .sf-hero-phases {
   left: clamp(12px, 2vw, 32px) !important;
-  max-width: min(220px, 36vw) !important;
+  max-width: min(220px, 32vw) !important;
   z-index: 4 !important;
+}
+.opus48-orchestra-hero .vl-ui-tasks,
+.opus48-orchestra-hero .opus48-hero-steps {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  max-width: 100% !important;
 }
 
 @media (max-width: 960px) {
@@ -275,18 +318,28 @@ section[id$="-hero"] .giant-seo-sub,
   }
 }
 
-/* Типографика hero — перебивает Kadence h1 {32px} и .xxx-page span */
+/* Типографика hero — сдержанный scale (не 68px на длинных заголовках) */
 .giant-seo,
-.fullscreen-white-office .giant-seo,
+.fullscreen-white-office:not(.opus48-orchestra-hero) .giant-seo,
 .smb-workflow-hero .giant-seo,
 .finops-hero-shell .giant-seo,
 .hero-enterprise-gateway .giant-seo,
-section[id$="-hero"] .giant-seo {
-  font-size: clamp(28px, 4.2vw, 68px) !important;
-  line-height: 1.08 !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.03em !important;
+.sf-hero-bridge .giant-seo,
+section[id$="-hero"]:not(.opus48-orchestra-hero) .giant-seo {
+  font-size: clamp(1.625rem, 3.25vw, 2.75rem) !important;
+  line-height: 1.12 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.025em !important;
   color: #0f172a !important;
+  text-wrap: balance;
+}
+.opus48-orchestra-hero .giant-seo,
+[class*="orchestra-hero"] .giant-seo {
+  font-size: clamp(1.5rem, 2.65vw, 2.5rem) !important;
+  line-height: 1.14 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  text-wrap: balance;
 }
 .giant-seo-sub,
 .fullscreen-white-office .giant-seo-sub,
