@@ -53,6 +53,23 @@ if (!function_exists('nn_cta_defaults')) {
         return nn_cta_value($which === 'secondary' ? 'secondary_label' : 'primary_label');
     }
 
+    /**
+     * Single CTA button for footer / ym-btn-group blocks.
+     */
+    function nn_cta_button(string $label = '', string $which = 'primary'): string
+    {
+        $url   = nn_cta_url($which);
+        $text  = $label !== '' ? $label : nn_cta_label($which);
+        $class = $which === 'secondary' ? 'ym-btn ym-btn-secondary' : 'ym-btn ym-btn-primary';
+
+        return sprintf(
+            '<a class="%s" href="%s" target="_blank" rel="noopener noreferrer"><span>%s</span></a>',
+            esc_attr($class),
+            esc_url($url),
+            esc_html($text)
+        );
+    }
+
     function nn_hero_cta_buttons(): string
     {
         $primary_url     = nn_cta_url('primary');
