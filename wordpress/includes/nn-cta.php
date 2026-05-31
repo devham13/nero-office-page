@@ -9,9 +9,9 @@ if (!function_exists('nn_cta_defaults')) {
     function nn_cta_defaults(): array
     {
         return [
-            'primary_url'   => 'https://t.me/gorbachevzd',
-            'primary_label' => 'Обсудить внедрение',
-            'secondary_url' => 'https://t.me/gorbachevzd',
+            'primary_url'     => 'https://t.me/gorbachevzd',
+            'primary_label'   => 'Обсудить внедрение',
+            'secondary_url'   => 'https://t.me/gorbachevzd',
             'secondary_label' => 'Обсудить проект',
         ];
     }
@@ -55,9 +55,9 @@ if (!function_exists('nn_cta_defaults')) {
 
     function nn_hero_cta_buttons(): string
     {
-        $primary_url   = nn_cta_url('primary');
-        $secondary_url = nn_cta_url('secondary');
-        $primary_label = nn_cta_label('primary');
+        $primary_url     = nn_cta_url('primary');
+        $secondary_url   = nn_cta_url('secondary');
+        $primary_label   = nn_cta_label('primary');
         $secondary_label = nn_cta_label('secondary');
 
         ob_start();
@@ -77,41 +77,151 @@ if (!function_exists('nn_cta_defaults')) {
     function nn_longread_support_styles(): string
     {
         return <<<'CSS'
-/* Nero Network: hero isolation from Kadence + page-wide longread rules */
+/* === Nero Network: изоляция Canvas-hero от Kadence и правил лонгрида === */
+
+/* Kadence: inner-wrap не должен сжимать/накрывать кастомный main */
+body[class*="page-template-page-"] #inner-wrap {
+  max-width: none !important;
+  width: 100% !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+body[class*="page-template-page-"] #inner-wrap > main.site-main[class*="-page"] {
+  display: block !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+body[class*="page-template-page-"] .content-area,
+body[class*="page-template-page-"] #inner-wrap.content-area {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Все варианты hero-секций */
 .fullscreen-white-office,
 .hero-enterprise-gateway,
-section[id$="-hero"] {
-  isolation: isolate;
-  position: relative;
-  z-index: 1;
+.smb-workflow-hero,
+.finops-hero-shell,
+[class*="-hero-shell"],
+section[id$="-hero"],
+main.site-main[class*="-page"] > section:first-of-type:has(canvas) {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  z-index: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
+
+/* Canvas — под UI, над фоном секции */
+.fullscreen-white-office canvas,
+.hero-enterprise-gateway canvas,
+.smb-workflow-hero canvas,
+.finops-hero-shell canvas,
+section[id$="-hero"] canvas,
+[class*="-hero-shell"] canvas,
+.smb-hero-canvas-wrap,
+[class*="-canvas-wrap"],
+[class*="hero-canvas"] {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.smb-hero-canvas-wrap,
+[class*="-canvas-wrap"] {
+  z-index: 1 !important;
+}
+
+/* Типографика hero — перебивает Kadence h1 {32px} и .xxx-page span */
+.giant-seo,
 .fullscreen-white-office .giant-seo,
+.smb-workflow-hero .giant-seo,
+.finops-hero-shell .giant-seo,
 .hero-enterprise-gateway .giant-seo,
 section[id$="-hero"] .giant-seo {
+  font-size: clamp(28px, 4.2vw, 68px) !important;
+  line-height: 1.08 !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
   color: #0f172a !important;
 }
+.giant-seo-sub,
 .fullscreen-white-office .giant-seo-sub,
+.smb-workflow-hero .giant-seo-sub,
+.finops-hero-shell .giant-seo-sub,
 .hero-enterprise-gateway .giant-seo-sub,
 section[id$="-hero"] .giant-seo-sub {
+  font-size: clamp(15px, 1.9vw, 21px) !important;
+  line-height: 1.55 !important;
   color: rgba(15, 23, 42, 0.72) !important;
 }
+.giant-seo span,
 .fullscreen-white-office .giant-seo span,
+.smb-workflow-hero .giant-seo span,
+.finops-hero-shell .giant-seo span,
 .hero-enterprise-gateway .giant-seo span,
 section[id$="-hero"] .giant-seo span {
-  display: block;
+  display: block !important;
   background: linear-gradient(90deg, #0284c7, #7c3aed) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
 }
+
+/* UI-панели hero поверх canvas */
+.smb-hero-copy,
+.sf-hero-copy,
+.finops-hero-copy,
+.hero-copy-block,
+.fullscreen-white-office .vl-ui-tasks,
+.fullscreen-white-office .vl-ui-pill,
+.smb-workflow-hero .vl-ui-tasks,
+.smb-workflow-hero .vl-ui-pill,
+.finops-hero-shell .vl-ui-tasks,
+.finops-hero-shell .vl-ui-pill,
+.nn-hero-cta-group {
+  position: relative !important;
+  z-index: 5 !important;
+}
+.smb-workflow-hero .vl-ui-task span,
+.finops-hero-shell .vl-ui-task span,
+.fullscreen-white-office .vl-ui-task span,
+.hero-enterprise-gateway .vl-ui-task span {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+.smb-workflow-hero .vl-ui-pill span,
+.finops-hero-shell .vl-ui-pill span,
+.fullscreen-white-office .vl-ui-pill span {
+  color: #334155 !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Эталон Метрики .ym-hero — не показывать поверх Canvas-hero */
+.fullscreen-white-office .ym-hero,
+.fullscreen-white-office .ym-hero-bg-anim,
+section[id$="-hero"] .ym-hero,
+[class*="-hero-shell"] .ym-hero {
+  display: none !important;
+}
+
 .nn-hero-cta-group {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 20px;
-  position: relative;
-  z-index: 5;
 }
 .nn-hero-btn {
   display: inline-flex;
@@ -137,16 +247,6 @@ section[id$="-hero"] .giant-seo span {
 }
 .nn-hero-btn-secondary span { color: #0f172a !important; }
 .nn-hero-btn:hover { transform: translateY(-2px); }
-.fullscreen-white-office canvas,
-.hero-enterprise-gateway canvas,
-section[id$="-hero"] canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
 CSS;
     }
 }
