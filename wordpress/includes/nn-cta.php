@@ -187,9 +187,7 @@ section.fullscreen-white-office > canvas:not([id*="boris"]),
 .sf-hero-bridge > canvas,
 .smb-workflow-hero .smb-hero-canvas-wrap,
 [class*="-hero-shell"] > canvas:first-of-type,
-.copilot-mcp-hero > canvas,
-.mcp-qc-hero-wrap > canvas,
-.alice-flash-hero > canvas {
+.copilot-mcp-hero > canvas {
   position: absolute !important;
   left: var(--nn-hero-canvas-left) !important;
   right: 0 !important;
@@ -230,6 +228,58 @@ section.fullscreen-white-office > canvas:not([id*="boris"]),
 }
 .opus48-orchestra-hero .opus48-hero-stage {
   min-height: min(52vh, 520px) !important;
+}
+
+/* MCP + Alice: split grid (canvas в правой «сцене») */
+.mcp-qc-hero-wrap .mcp-qc-hero-grid,
+.alice-flash-hero .alice-hero-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr) !important;
+  gap: clamp(20px, 3vw, 40px) !important;
+  align-items: center !important;
+}
+.mcp-qc-hero-stage,
+.alice-flash-hero .alice-hero-stage {
+  position: relative !important;
+  min-height: min(56vh, 560px) !important;
+  overflow: hidden !important;
+}
+.mcp-qc-hero-stage canvas,
+.mcp-qc-hero-stage #mcp-qc-sales-hero-canvas,
+.alice-flash-hero .alice-hero-stage canvas,
+.alice-flash-hero #alice-flash-hero-canvas {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.mcp-qc-hero-main,
+.alice-flash-hero .alice-hero-main {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.mcp-qc-hero-wrap .mcp-qc-copy-block,
+.alice-flash-hero .alice-hero-copy {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  max-width: 100% !important;
+  width: auto !important;
+}
+.mcp-qc-hero-wrap .mcp-qc-stages-left,
+.alice-flash-hero .alice-hero-stages {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  max-width: 100% !important;
 }
 
 /* Enterprise gateway (KPMG, Cursor, Tokenmaxxing): grid + canvas в правой карточке */
