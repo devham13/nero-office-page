@@ -4,6 +4,8 @@
  * Description: Лонгрид — кейс Salesforce + Claude Code, агентная разработка.
  */
 
+require_once get_stylesheet_directory() . '/includes/nn-cta.php';
+
 $page_seo_title = 'Salesforce и Claude Code: 13 дней вместо 231 — агентная разработка';
 $page_seo_description = 'Кейс Salesforce 2026: миграция 33 API за 13 дней, +79% PR, −5% инцидентов. Как повторить агентную разработку с Claude Code, CLAUDE.md и rule-фреймворком в своём бизнесе — без штата из 10 000 разработчиков.';
 
@@ -24,6 +26,7 @@ get_header();
 ?>
 
 <style>
+<?php echo nn_longread_support_styles(); ?>
 /**
  * ЭТАЛОННЫЕ СТИЛИ ЛОНГРИДА (страница «Яндекс Метрика Skill» из эталонной темы владельца).
  *
@@ -53,20 +56,20 @@ body, html {
 
 /* METRIKA SKILL PREMIUM THEME & ANIMATIONS */
 .salesforce-claude-code-13-dnej-agentnaya-razrabotka-page { --page-class: 'salesforce-claude-code-13-dnej-agentnaya-razrabotka-page'; }
-:root {
+.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page {
     --ym-bg: #f8fafc;
     --ym-surface: #ffffff;
     --ym-text: #334155;
     --ym-heading: #0f172a;
     --ym-border: #e2e8f0;
-    --ym-primary: #ff0000;
-    --ym-accent: #3b82f6;
+    --ym-primary: #0176d3;
+    --ym-accent: #0ea5e9;
     --ym-code-bg: #0f172a;
     --ym-code-text: #38bdf8;
     --ym-success: #10b981;
     --ym-shadow-sm: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
     --ym-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
-    --ym-shadow-lg: 0 20px 40px -10px rgba(255, 0, 0, 0.15);
+    --ym-shadow-lg: 0 20px 40px -10px rgba(1, 118, 211, 0.15);
 }
 
 .salesforce-claude-code-13-dnej-agentnaya-razrabotka-page {
@@ -76,19 +79,19 @@ body, html {
     padding-bottom: 100px;
 }
 
-.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page h1,
-.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page h2,
-.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page h3,
-.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page h4,
-.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page h5,
-.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page h6 {
+.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page :not(#sf-orchestration-hero):not(#sf-orchestration-hero *) h1,
+.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page :not(#sf-orchestration-hero):not(#sf-orchestration-hero *) h2,
+.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page :not(#sf-orchestration-hero):not(#sf-orchestration-hero *) h3,
+.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page :not(#sf-orchestration-hero):not(#sf-orchestration-hero *) h4,
+.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page :not(#sf-orchestration-hero):not(#sf-orchestration-hero *) h5,
+.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page :not(#sf-orchestration-hero):not(#sf-orchestration-hero *) h6 {
     color: #0f172a !important;
     word-wrap: break-word;
     overflow-wrap: anywhere;
 }
 .salesforce-claude-code-13-dnej-agentnaya-razrabotka-page p,
 .salesforce-claude-code-13-dnej-agentnaya-razrabotka-page li,
-.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page span:not(.ym-mac-dot):not(.ym-comment):not(.ym-command):not(.ym-btn-primary span),
+.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page :not(#sf-orchestration-hero):not(#sf-orchestration-hero *) span:not(.ym-mac-dot):not(.ym-comment):not(.ym-command):not(.ym-btn-primary span):not(.nn-hero-btn span),
 .salesforce-claude-code-13-dnej-agentnaya-razrabotka-page strong,
 .salesforce-claude-code-13-dnej-agentnaya-razrabotka-page em {
     color: #334155 !important;
@@ -675,10 +678,6 @@ nav[aria-label="Хлебные крошки"],
   min-height: 100dvh;
   position: relative;
 }
-.salesforce-claude-code-13-dnej-agentnaya-razrabotka-page :root {
-  --ym-primary: #0176d3;
-  --ym-accent: #0ea5e9;
-}
 .sf-intro-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -934,7 +933,7 @@ nav[aria-label="Хлебные крошки"],
     <span>миграция за 13 дней вместо 231</span>
     — как повторить агентную разработку в своём бизнесе</h1>
   <p class="giant-seo-sub">Кейс 2026: +79% pull request'ов, −5% инцидентов и rule-based фреймворк — что внедрить команде без бюджета Fortune 500</p>
-  <a class="telegram-button" href="https://t.me/neronetwork" rel="noopener noreferrer">Обсудить внедрение в Telegram</a>
+  <?php echo nn_hero_cta_buttons(); ?>
 </div>
 
 <script id="sf-agent-bridge-engine">
@@ -1489,7 +1488,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <h3 id="cta-audit-pilot-title">Аудит SDLC и пилот агентной миграции</h3>
   <p>Разберём ваш стек, выберем узкий пилот на N endpoint&rsquo;ов и настроим rule-framework под Claude Code &mdash; без копирования маркетинговых цифр Salesforce.</p>
   <div class="ym-btn-group" style="justify-content:flex-start;margin-top:20px;">
-    <a class="ym-btn ym-btn-primary" href="<?php echo esc_url( getenv( 'PRIMARY_CTA_URL' ) ?: '' ); ?>" rel="noopener"><span><?php echo esc_html( getenv( 'PRIMARY_CTA_LABEL' ) ?: 'Заявка на внедрение' ); ?></span></a>
+    <a class="ym-btn ym-btn-primary" href="<?php echo esc_url( nn_cta_url( 'primary' ) ); ?>" target="_blank" rel="noopener noreferrer"><span><?php echo esc_html( nn_cta_label( 'primary' ) ); ?></span></a>
   </div>
 </aside>
 <hr>
@@ -2121,7 +2120,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <p>Официальные треки Anthropic и документация Agent SDK — база; внутренние воркшопы под ваш стек (GitLab/GitHub, CI) — то, что закрывает разрыв между Habr-теорией и продом.</p>
 <p class="reveal ym-training-cta" style="margin-top:1.25rem;padding:1rem 1.25rem;background:var(--ym-surface);border-left:4px solid var(--ym-accent);border-radius:0 12px 12px 0;">
   <strong>Обучение команды:</strong> если нужен структурированный вход в агентную разработку на вашем стеке,
-  <a href="<?php echo esc_url( getenv( 'SECONDARY_CTA_URL' ) ?: '' ); ?>" rel="noopener"><?php echo esc_html( getenv( 'SECONDARY_CTA_LABEL' ) ?: 'программа обучения' ); ?></a>
+  <a href="<?php echo esc_url( nn_cta_url( 'secondary' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( nn_cta_label( 'secondary' ) ); ?></a>
   &mdash; практика постановки задач агенту, ревью и обновления rules.
 </p>
 <h3 id="ru-vps">RU-контекст без VPN (VPS, безопасность репозитория)</h3>
@@ -2165,9 +2164,9 @@ document.addEventListener("DOMContentLoaded", () => {
   <h3 style="font-size:1.5rem;margin-bottom:12px;">Внедрение под ключ: от аудита до метрик пилота</h3>
   <p style="margin-bottom:24px;">Аудит SDLC &rarr; пилот на N endpoint&rsquo;ов &rarr; CLAUDE.md, skills, MCP &rarr; обучение и метрики на вашем стенде.</p>
   <div class="ym-btn-group">
-    <a class="ym-btn ym-btn-primary" href="<?php echo esc_url( getenv( 'PRIMARY_CTA_URL' ) ?: '' ); ?>" rel="noopener"><span><?php echo esc_html( getenv( 'PRIMARY_CTA_LABEL' ) ?: 'Обсудить внедрение' ); ?></span></a>
-    <?php if ( getenv( 'SECONDARY_CTA_URL' ) ) : ?>
-    <a class="ym-btn ym-btn-secondary" href="<?php echo esc_url( getenv( 'SECONDARY_CTA_URL' ) ); ?>" rel="noopener"><span><?php echo esc_html( getenv( 'SECONDARY_CTA_LABEL' ) ?: 'Обучение команды' ); ?></span></a>
+    <a class="ym-btn ym-btn-primary" href="<?php echo esc_url( nn_cta_url( 'primary' ) ); ?>" target="_blank" rel="noopener noreferrer"><span><?php echo esc_html( nn_cta_label( 'primary' ) ); ?></span></a>
+    <?php if ( nn_cta_url( 'secondary' ) ) : ?>
+    <a class="ym-btn ym-btn-secondary" href="<?php echo esc_url( nn_cta_url( 'secondary' ) ); ?>" target="_blank" rel="noopener noreferrer"><span><?php echo esc_html( nn_cta_label( 'secondary' ) ); ?></span></a>
     <?php endif; ?>
   </div>
 </div>
