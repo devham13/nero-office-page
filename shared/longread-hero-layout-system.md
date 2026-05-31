@@ -43,9 +43,9 @@
 - Сетка: `.mcp-qc-hero-grid` / `.alice-hero-grid` → `0.4fr` / `0.6fr`
 - Canvas в `.mcp-qc-hero-stage` / `.alice-hero-stage`, `resizeCanvas()` от **родителя stage**
 - JS: `cx = cw * 0.52`, `scale ≈ 1.05` (см. defaults)
-- Эталоны в репо:
-  - `wordpress/templates/pages/page-mcp-ii-agent-kontrol-kachestva-prodazh.php`
-  - `wordpress/templates/pages/page-yandex-alice-ai-llm-flash-avtomatizaciya-biznesa.php`
+- Эталоны:
+  - в репо: `wordpress/templates/pages/page-mcp-ii-agent-kontrol-kachestva-prodazh.php`
+  - Alice (grid-split): `.cursor/page-yandex-alice-ai-llm-flash-avtomatizaciya-biznesa.php` → скопировать в `templates/pages/` перед `--page` (см. `wordpress/templates/pages/README.md`)
 - Каркас: `wordpress/templates/hero/grid-split.structure.partial.php`
 
 ### 2. `enterprise-gateway` (KPMG, Cursor, Tokenmaxxing)
