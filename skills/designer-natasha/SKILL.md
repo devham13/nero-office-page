@@ -9,6 +9,8 @@ description: Дизайнер Наташа — полная вёрстка ло�
 
 Перед сборкой полной страницы открой **`shared/agent-pipeline-pitfalls.md`** (зазор под шапкой, hero, публикация).
 
+**Hero split-layout (обязательно):** сразу после сброса breadcrumbs/padding вставь **полное содержимое** файла **`shared/hero-split-layout.css`** в общий `<style>` страницы. Без него тема Kadence возвращает overlay (текст H1 поверх canvas). Hero Алины вставляй **как есть** — не меняй `finops-hero-grid` / `hero-layout` на absolute-позиционирование.
+
 ## Вход
 
 1. **Текст и структура** от **Коли** (SEO): заголовки, абзацы, FAQ, таблицы, приоритет блоков.

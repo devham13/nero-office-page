@@ -33,6 +33,14 @@
 - Cloud Agent публикует без блока `=== ЮРА (ПУБЛИКАЦИЯ) ===`.
 - Cloud Agent создаёт короткую статью вместо лонгрида 8k–20k+ знаков.
 
+## Hero (первый экран) — split-layout
+
+Текст **не должен** наезжать на canvas. Эталон: страницы FinOps / KPMG на `${PUBLIC_SITE_HOST}`.
+
+- **Алина:** разметка `finops-hero-grid` + `finops-hero-stage` (или `hero-enterprise-gateway` + `hero-layout`); canvas `id="hero-{slug}-canvas"` **только** внутри stage/visual-col.
+- **Наташа:** в общий `<style>` страницы вставить **`shared/hero-split-layout.css`** (сразу после сброса padding). Шаблон HTML: **`shared/hero-split-layout.html`**.
+- **Запрещён** overlay vibecoding (`position:absolute` на H1 / `vl-ui-tasks` поверх полноэкранного canvas).
+
 ## Handoff
 
 Данные между ролями идут через:

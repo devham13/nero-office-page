@@ -129,114 +129,41 @@ description: Аниматор Алина — hero с Canvas: каждый раз
 - Регион/гео для подзаголовка, если нужно локальное SEO.
 - Пожелания по тону (деловой, ироничный и т.д.).
 
-## КРИТИЧНО: CSS hero должен быть самодостаточным
+## КРИТИЧНО: split-layout (текст слева, canvas справа) — не overlay
 
-Hero-блок будет публиковаться внутри PHP-шаблона WordPress через FTP, но глобальные стили темы могут конфликтовать с лонгридом или загружаться не в том порядке. Поэтому:
+**Запрещён** устаревший макет vibecoding-overlay: H1 / `vl-ui-tasks` / `vl-ui-pill` с `position: absolute` поверх полноэкранного canvas. Именно он даёт «смещение темы на анимацию».
 
-1. **Включи ВСЕ CSS для hero в inline `<style>` блок** внутри секции hero.
-2. **Не полагайся на тему** для классов `.fullscreen-white-office`, `.giant-seo`, `.giant-seo-sub`, `.telegram-button`, `.vl-ui-tasks`, `.vl-ui-task`, `.vl-ui-pill`. Определи их в своём `<style>`.
-3. Hero должен выглядеть правильно **даже без CSS темы Configured WordPress Theme**.
+### Обязательная разметка (выбери один вариант)
 
-Минимальные стили, которые ОБЯЗАТЕЛЬНО включить (адаптируй под тему):
+**Вариант A — FinOps (предпочтительно, как на ai-finops / kontrol-rashodov):**
 
-```css
-.fullscreen-white-office {
-  position: relative;
-  overflow: hidden;
-  min-height: 100vh;
-  background: #ffffff;
-}
-.giant-seo {
-  font-size: clamp(36px, 5vw, 72px);
-  font-weight: 900;
-  line-height: 1.08;
-  letter-spacing: -2px;
-  color: #0f172a;
-  margin: 0;
-}
-.giant-seo span {
-  display: block;
-  background: linear-gradient(90deg, #f97316, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.giant-seo-sub {
-  font-size: clamp(16px, 2vw, 22px);
-  line-height: 1.55;
-  color: rgba(15, 23, 42, 0.72);
-  margin-top: 20px;
-  max-width: 720px;
-}
-.telegram-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
-  background: #0f172a;
-  color: #fff !important;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  transition: transform 0.2s;
-}
-.telegram-button:hover { transform: translateY(-2px); }
-.vl-ui-tasks {
-  position: absolute;
-  right: clamp(16px, 4vw, 60px);
-  top: clamp(90px, 14vh, 180px);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 3;
-}
-.vl-ui-task {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 18px;
-  background: rgba(255,255,255,0.92);
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #334155;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-  backdrop-filter: blur(6px);
-}
-.vl-ui-task span {
-  width: 28px;
-  height: 28px;
-  background: #f97316;
-  color: #fff;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 800;
-  flex-shrink: 0;
-}
-.vl-ui-pill {
-  position: absolute;
-  bottom: clamp(20px, 4vh, 50px);
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
-  z-index: 3;
-}
-.vl-ui-pill span {
-  padding: 10px 18px;
-  background: rgba(255,255,255,0.92);
-  border: 1px solid #e2e8f0;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #334155;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
+```html
+<section class="fullscreen-white-office finops-hero-shell" id="{slug}-hero">
+  <div class="finops-hero-grid">
+    <div class="finops-hero-main">
+      <div class="vl-ui-pill">…</div>
+      <nav class="vl-ui-tasks">…</nav>
+      <div class="finops-hero-copy hero-copy-block">
+        <h1 class="giant-seo">Строка 1 — <span>строка 2 градиентом</span></h1>
+        <p class="giant-seo-sub">…</p>
+      </div>
+      <div class="finops-hero-cta-wrap">CTA</div>
+    </div>
+    <div class="finops-hero-stage">
+      <canvas id="hero-{slug}-canvas"></canvas>
+    </div>
+  </div>
+</section>
 ```
+
+**Вариант B — Enterprise gateway (KPMG):** `hero-enterprise-gateway` + `hero-layout` + `hero-content-col` + `hero-visual-col` (canvas **только** в `hero-visual-col`).
+
+### CSS
+
+1. **Наташа** вставляет **`shared/hero-split-layout.css`** в общий `<style>` страницы (сразу после сброса padding/breadcrumbs). Без этого блока тема Kadence снова кладёт текст на canvas.
+2. В секции hero — только **локальные** акценты (цвет градиента, фон stage); базовый split — из `hero-split-layout.css`.
+3. **Canvas `id`:** `hero-{slug}-canvas` и родитель `.finops-hero-stage` или `.hero-visual-col`. Не `gcw-orchestra-canvas` как прямой потомок `<section>`.
+4. **H1:** `font-size: clamp(1.5rem, 2.75vw, 2.5rem)` — не 64px+. Вторая строка в `<span display:block>`.
 
 ## Выход (одним сообщением)
 

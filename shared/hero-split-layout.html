@@ -1,0 +1,20 @@
+<!--
+  Эталон разметки hero (split). Алина копирует структуру, подставляет тексты.
+  CSS: shared/hero-split-layout.css (вставляет Наташа в <style> страницы).
+-->
+<section id="{slug}-hero" class="fullscreen-white-office finops-hero-shell" aria-label="Hero">
+  <div class="finops-hero-grid">
+    <div class="finops-hero-main">
+      <div class="vl-ui-pill" aria-label="Метрики">…</div>
+      <nav class="vl-ui-tasks" aria-label="Этапы">…</nav>
+      <div class="finops-hero-copy hero-copy-block">
+        <h1 class="giant-seo">Первая строка — <span>вторая строка градиентом</span></h1>
+        <p class="giant-seo-sub">Ответ на интент заголовка</p>
+      </div>
+      <div class="finops-hero-cta-wrap"><!-- CTA --></div>
+    </div>
+    <div class="finops-hero-stage" aria-hidden="true">
+      <canvas id="hero-{slug}-canvas"></canvas>
+    </div>
+  </div>
+</section>
