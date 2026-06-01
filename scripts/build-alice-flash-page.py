@@ -468,7 +468,7 @@ def build_body_html(handoff_text: str) -> str:
     prose = prose.replace("<!-- CTA_SECONDARY_PLACEHOLDER -->", cta_secondary())
 
     reveal = REVEAL_JS.read_text(encoding="utf-8")
-    json_ld = JSON_LD.format(canonical_page_id=CANONICAL_PAGE_ID)
+    json_ld = JSON_LD.replace("__CANONICAL_PAGE_ID__", CANONICAL_PAGE_ID)
 
     return f"""<style>
 {load_css()}
