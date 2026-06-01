@@ -33,11 +33,44 @@ nav[aria-label="Хлебные крошки"],
   padding-top: 0 !important;
   margin-top: 0 !important;
 }
-#gigacowork-orchestra.fullscreen-white-office.gcw-hero {
-  min-height: 100vh;
-  min-height: 100dvh;
-  position: relative;
+/* === Nero Network: изоляция Canvas-hero от Kadence === */
+body[class*="page-template-page-"] #inner-wrap {
+  max-width: none !important;
+  width: 100% !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
 }
+body[class*="page-template-page-"] #inner-wrap > main.site-main[class*="-page"] {
+  display: block !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+body[class*="page-template-page-"] {
+  --nn-hero-text-max: min(26rem, 38vw);
+  --nn-hero-gutter: clamp(20px, 4vw, 56px);
+}
+.hero-enterprise-gateway .hero-visual-col canvas,
+.hero-enterprise-gateway #gcw-orchestra-canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.hero-enterprise-gateway .hero-copy-block,
+.hero-enterprise-gateway .vl-ui-tasks,
+.hero-enterprise-gateway .vl-ui-pill {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+}
+
 .gcw-intro-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
@@ -743,108 +776,125 @@ body, html {
 </style>
 
 <main id="primary" class="site-main gigacowork-ii-agenty-biznes-bez-programmistov-page" role="main" tabindex="-1">
-<section id="gigacowork-orchestra" class="fullscreen-white-office gcw-hero" aria-labelledby="gcw-hero-title">
+<section id="gigacowork-enterprise-hero" class="hero-enterprise-gateway fullscreen-white-office" aria-label="Hero: GigaCowork и ИИ-агенты">
 <style>
-.fullscreen-white-office.gcw-hero {
+.hero-enterprise-gateway.fullscreen-white-office {
   position: relative;
   overflow: hidden;
   min-height: 100vh;
-  background: #f8fafc;
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
+  min-height: 100dvh;
+  width: 100%;
+  padding-top: clamp(80px, 11vh, 120px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, #ffffff 0%, #f8fafc 45%, #ecfdf5 100%);
+  font-family: Inter, system-ui, -apple-system, sans-serif;
 }
-.gcw-hero canvas {
+.hero-enterprise-gateway .hero-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  gap: clamp(20px, 4vw, 48px);
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 56px) clamp(28px, 5vh, 56px);
+  position: relative;
+  z-index: 2;
+}
+.hero-enterprise-gateway .hero-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vh, 24px);
+  min-width: 0;
+  max-width: var(--nn-hero-text-max, 26rem);
+}
+.hero-enterprise-gateway .hero-visual-col {
+  position: relative;
+  min-height: min(480px, 52vh);
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,0.96) 0%, rgba(236,253,245,0.9) 100%);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+.hero-enterprise-gateway .hero-grid-bg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(33, 160, 56, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(33, 160, 56, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
   pointer-events: none;
 }
-.gcw-hero-layout {
-  position: relative;
-  z-index: 3;
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: minmax(280px, 38vw) 1fr;
-  grid-template-rows: auto 1fr auto;
-  gap: clamp(12px, 2vw, 24px);
-  padding: clamp(20px, 4vw, 48px);
-  pointer-events: none;
-}
-.gcw-copy-col {
-  grid-column: 1;
-  grid-row: 1 / -1;
-  align-self: center;
-  pointer-events: auto;
-  max-width: 560px;
-}
-.giant-seo {
-  font-size: clamp(32px, 4.2vw, 64px);
+.hero-enterprise-gateway .giant-seo {
+  font-size: clamp(1.625rem, 3.25vw, 2.75rem);
   font-weight: 900;
   line-height: 1.08;
-  letter-spacing: -2px;
+  letter-spacing: -0.04em;
   color: #0f172a;
   margin: 0;
+  max-width: 100%;
+  word-wrap: break-word;
 }
-.giant-seo span {
+.hero-enterprise-gateway .giant-seo span {
   display: block;
+  margin-top: 0.15em;
   background: linear-gradient(90deg, #21a038, #6366f1);
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.giant-seo-sub {
-  font-size: clamp(15px, 1.8vw, 20px);
+.hero-enterprise-gateway .giant-seo-sub {
+  font-size: clamp(15px, 1.9vw, 21px);
   line-height: 1.55;
   color: rgba(15, 23, 42, 0.72);
   margin-top: 18px;
-  max-width: 520px;
+  max-width: 680px;
 }
-.telegram-button {  <!-- pragma: allowlist secret -->
+.hero-enterprise-gateway .telegram-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 24px;
+  margin-top: 22px;
   padding: 12px 22px;
-  background: #0f172a;
+  background: #21a038;
   color: #fff !important;
   border-radius: 999px;
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 20px rgba(33, 160, 56, 0.28);
 }
-.telegram-button:hover { transform: translateY(-2px); }  <!-- pragma: allowlist secret -->
-.vl-ui-tasks.gcw-steps-row {
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: end;
-  align-self: start;
+.hero-enterprise-gateway .telegram-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(33, 160, 56, 0.35);
+}
+.hero-enterprise-gateway .vl-ui-tasks {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  max-width: min(720px, 100%);
-  pointer-events: auto;
+  flex-direction: column;
+  gap: 10px;
 }
-.vl-ui-task {
+.hero-enterprise-gateway .vl-ui-task {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
+  gap: 12px;
+  padding: 11px 16px;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 13px;
   font-weight: 600;
   color: #334155;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
-.vl-ui-task span {
-  width: 26px;
-  height: 26px;
+.hero-enterprise-gateway .vl-ui-task span {
+  width: 28px;
+  height: 28px;
   background: linear-gradient(135deg, #21a038, #6366f1);
   color: #fff;
   border-radius: 8px;
@@ -855,18 +905,14 @@ body, html {
   font-weight: 800;
   flex-shrink: 0;
 }
-.vl-ui-pill.gcw-pill-br {
-  grid-column: 2;
-  grid-row: 3;
-  justify-self: end;
-  align-self: end;
+.hero-enterprise-gateway .vl-ui-pill {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 10px;
-  pointer-events: auto;
 }
-.vl-ui-pill span {
-  padding: 10px 16px;
+.hero-enterprise-gateway .vl-ui-pill span {
+  padding: 9px 16px;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid #e2e8f0;
   border-radius: 999px;
@@ -875,76 +921,87 @@ body, html {
   color: #334155;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-@media (max-width: 900px) {
-  .gcw-hero-layout {
+@media (max-width: 960px) {
+  .hero-enterprise-gateway .hero-layout {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
+    gap: 20px;
+    padding-bottom: 32px;
   }
-  .gcw-copy-col { grid-row: 1; grid-column: 1; }
-  .vl-ui-tasks.gcw-steps-row { grid-row: 2; grid-column: 1; justify-self: stretch; }
-  .vl-ui-pill.gcw-pill-br { grid-row: 4; grid-column: 1; justify-self: center; }
+  .hero-enterprise-gateway .hero-content-col { order: 1; max-width: 100%; }
+  .hero-enterprise-gateway .hero-visual-col {
+    order: 2;
+    min-height: min(280px, 38vh);
+  }
 }
 </style>
-<canvas id="gcw-orchestra-canvas" aria-hidden="true"></canvas>
-<div class="gcw-hero-layout">
-  <div class="gcw-copy-col">
-    <h1 id="gcw-hero-title" class="giant-seo">GigaCowork: ИИ-агенты для бизнеса <span>без программистов — Make и MCP</span></h1>
-    <p class="giant-seo-sub">Сбер открыл тест GigaCowork на ЦИПР-2026: регламенты на русском, MCP к CRM и пилоты до −81,5% рутины. Показываем, как собрать такой же контур без экосистемы банка.</p>
-    <a class="telegram-button" href="https://t.me/gorbachevzd">Обсудить пилот агентов</a>  <!-- pragma: allowlist secret -->
+
+<div class="hero-layout">
+  <div class="hero-content-col">
+    <div class="vl-ui-tasks" aria-label="Этапы контура GigaCowork">
+      <div class="vl-ui-task"><span>1</span>Регламент → навык</div>
+      <div class="vl-ui-task"><span>2</span>MCP к CRM и почте</div>
+      <div class="vl-ui-task"><span>3</span>Human approval</div>
+      <div class="vl-ui-task"><span>4</span>Пилот 14 дней</div>
+      <div class="vl-ui-task"><span>5</span>Масштаб Make / n8n</div>
+    </div>
+
+    <div class="hero-copy-block">
+      <h1 id="gcw-hero-title" class="giant-seo">GigaCowork: ИИ-агенты для бизнеса <span>без программистов — Make и MCP</span></h1>
+      <p class="giant-seo-sub">Сбер открыл тест GigaCowork на ЦИПР-2026: регламенты на русском, MCP к CRM и пилоты до −81,5% рутины. Показываем, как собрать такой же контур без экосистемы банка.</p>
+      <a class="telegram-button" href="https://t.me/gorbachevzd">Обсудить пилот агентов</a>  <!-- pragma: allowlist secret -->
+    </div>
+
+    <div class="vl-ui-pill" aria-label="Метрики и теги">
+      <span>Workspace</span>
+      <span>MCP</span>
+      <span>No-code</span>
+      <span>−81,5% рутина</span>
+    </div>
   </div>
-  <div class="vl-ui-tasks gcw-steps-row" aria-label="Этапы контура агентов">
-    <div class="vl-ui-task"><span>1</span>Регламент → навык</div>
-    <div class="vl-ui-task"><span>2</span>MCP к CRM</div>
-    <div class="vl-ui-task"><span>3</span>Human approval</div>
-    <div class="vl-ui-task"><span>4</span>Пилот 14 дней</div>
-    <div class="vl-ui-task"><span>5</span>Масштаб Make/n8n</div>
-  </div>
-  <div class="vl-ui-pill gcw-pill-br" aria-label="Теги">
-    <span>Workspace</span>
-    <span>MCP</span>
-    <span>No-code</span>
-    <span>−81,5% рутина</span>
+
+  <div class="hero-visual-col" aria-label="Оркестрация ИИ-агентов">
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <canvas id="gcw-orchestra-canvas" aria-hidden="true"></canvas>
   </div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+(function gigacoworkHeroEngine() {
   const canvas = document.getElementById("gcw-orchestra-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   let cw = 0, ch = 0, scale = 1, cx = 0, cy = 0, frame = 0;
 
   function resizeCanvas() {
-    if (!canvas.parentElement) return;
-    canvas.width = canvas.parentElement.clientWidth || window.innerWidth;
-    canvas.height = canvas.parentElement.clientHeight || window.innerHeight;
+    const parent = canvas.parentElement;
+    if (!parent) return;
+    canvas.width = parent.clientWidth || 640;
+    canvas.height = parent.clientHeight || 480;
     cw = canvas.width;
     ch = canvas.height;
-    cx = cw * 0.58;
-    cy = ch * 0.52;
-    scale = cw < 768 ? cw / 520 : Math.min(cw / 1100, ch / 800) * 1.35;
+    cx = cw * 0.52;
+    cy = ch / 2 - 16;
+    scale = cw < 520 ? cw / 520 : Math.min(cw / 900, ch / 700) * 1.25;
   }
   window.addEventListener("resize", resizeCanvas);
   resizeCanvas();
 
   const C = {
     outline: "#0f172a",
-    hub: "#ffffff",
-    hubEdge: "#cbd5e1",
-    arc: "#94a3b8",
-    tokenReg: "#fef9c3",
-    tokenMcp: "#bfdbfe",
-    tokenData: "#ddd6fe",
-    pod: "#f1f5f9",
-    portOn: "#21a038",
-    portOff: "#e2e8f0",
-    stamp: "#6366f1",
-    metric: "#21a038",
+    sber: "#21a038",
+    indigo: "#6366f1",
+    panel: "#ffffff",
+    river: "#cbd5e1",
+    tokenCrm: "#dbeafe",
+    tokenDoc: "#fef9c3",
+    tokenHr: "#ede9fe",
+    tokenErp: "#d1fae5",
     agentYellow: "#eab308",
     agentGreen: "#10b981",
     agentBlue: "#3b82f6",
     agentPink: "#ec4899",
     agentPurple: "#8b5cf6",
-    bubbleBg: "#ffffff"
+    bubbleBg: "#ffffff",
+    approve: "#22c55e"
   };
 
   function drawPolyRound(ctx, x, y, w, h, radius, fill, stroke) {
@@ -960,247 +1017,201 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  class ProtocolArcStream {
-    constructor() {
-      this.arcs = [
-        { sx: -320, sy: -80, cx1: -120, cy1: -140, cx2: 40, cy2: -60, ex: 80, ey: -20, color: C.tokenReg },
-        { sx: -300, sy: 60, cx1: -80, cy1: 120, cx2: 60, cy2: 80, ex: 90, ey: 30, color: C.tokenMcp },
-        { sx: -280, sy: -20, cx1: -60, cy1: -40, cx2: 70, cy2: 50, ex: 85, ey: 10, color: C.tokenData }
-      ];
+  class RegulamentStream {
+    constructor(x, y, w) {
+      this.x = x; this.y = y; this.w = w;
     }
     draw(ctx) {
-      const spd = frame * 0.022;
-      this.arcs.forEach((a, i) => {
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = C.arc;
-        ctx.setLineDash([6, 8]);
-        ctx.beginPath();
-        ctx.moveTo(a.sx, a.sy);
-        ctx.bezierCurveTo(a.cx1, a.cy1, a.cx2, a.cy2, a.ex, a.ey);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        const t = (spd + i * 0.33) % 1;
-        const px = (1 - t) ** 3 * a.sx + 3 * (1 - t) ** 2 * t * a.cx1 + 3 * (1 - t) * t ** 2 * a.cx2 + t ** 3 * a.ex;
-        const py = (1 - t) ** 3 * a.sy + 3 * (1 - t) ** 2 * t * a.cy1 + 3 * (1 - t) * t ** 2 * a.cy2 + t ** 3 * a.ey;
-        drawPolyRound(ctx, px - 8, py - 8, 16, 16, 3, a.color, C.outline);
-        if (i === 0) {
+      const phase = (frame * 0.04) % 240;
+      ctx.strokeStyle = C.river;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      for (let i = 0; i <= this.w; i += 20) {
+        const wave = Math.sin((i + frame * 0.6) * 0.04) * 10;
+        ctx.lineTo(this.x + i, this.y + wave);
+      }
+      ctx.stroke();
+      const colors = [C.tokenDoc, C.tokenCrm, C.tokenHr, C.tokenErp];
+      const labels = ["DOC", "CRM", "HR", "ERP"];
+      for (let k = 0; k < 4; k++) {
+        const t = (frame * 0.35 + k * 70) % (this.w + 80);
+        const px = this.x + t - 40;
+        const py = this.y + Math.sin((px + frame) * 0.05) * 8;
+        if (px > this.x - 20 && px < this.x + this.w) {
+          drawPolyRound(ctx, px - 8, py - 10, 16, 20, 3, colors[k], C.outline);
+          ctx.fillStyle = C.outline;
           ctx.font = "bold 7px sans-serif";
-          ctx.fillStyle = C.outline;
           ctx.textAlign = "center";
-          ctx.fillText("PDF", px, py + 2);
+          ctx.fillText(labels[k], px, py + 2);
         }
-        if (i === 1) {
-          ctx.fillStyle = C.outline;
-          ctx.font = "bold 6px sans-serif";
-          ctx.fillText("MCP", px, py + 2);
-        }
-      });
+      }
+      if (phase > 8 && phase < 12) createBubble(this.x + 80, this.y - 28, "Регламент → навык", 220);
     }
   }
 
-  class WorkspacePod {
-    constructor(x, y, label) {
-      this.x = x;
-      this.y = y;
-      this.label = label;
-      this.pulse = Math.random() * 100;
+  class McpProtocolRing {
+    constructor(hubX, hubY, r) {
+      this.hubX = hubX; this.hubY = hubY; this.r = r;
     }
     draw(ctx) {
-      this.pulse += 0.02;
-      const glow = 0.15 + Math.sin(this.pulse) * 0.08;
-      ctx.globalAlpha = 0.35 + glow;
-      drawPolyRound(ctx, this.x, this.y, 70, 44, 6, C.pod, C.outline);
+      const pulse = 0.5 + Math.sin(frame * 0.05) * 0.15;
+      ctx.save();
+      ctx.strokeStyle = C.indigo;
+      ctx.globalAlpha = 0.35 + pulse * 0.2;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([8, 10]);
+      ctx.lineDashOffset = -frame * 0.8;
+      ctx.beginPath();
+      ctx.arc(this.hubX, this.hubY, this.r * pulse, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
       ctx.globalAlpha = 1;
-      ctx.font = "bold 8px sans-serif";
-      ctx.fillStyle = C.outline;
+      ctx.fillStyle = C.indigo;
+      ctx.font = "bold 9px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(this.label, this.x + 35, this.y + 26);
+      ctx.fillText("MCP", this.hubX, this.hubY - this.r * pulse - 6);
+      ctx.restore();
     }
   }
 
-  class McpPortNode {
-    constructor(x, y, angle) {
-      this.x = x;
-      this.y = y;
-      this.angle = angle;
+  class SkillShelf {
+    constructor(x, y) {
+      this.x = x; this.y = y;
     }
-    draw(ctx, prg) {
-      const on = prg > 55 && prg < 165;
-      drawPolyRound(ctx, this.x - 10, this.y - 10, 20, 20, 4, on ? C.portOn : C.portOff, C.outline);
-      if (on && frame % 20 < 10) {
-        ctx.strokeStyle = C.portOn;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(0, 0);
-        ctx.stroke();
+    draw(ctx) {
+      const phase = (frame * 0.04) % 240;
+      const labels = ["HR", "Docs", "Отчёты", "CRM"];
+      const show = Math.min(4, Math.floor((phase % 240) / 30));
+      for (let i = 0; i < show; i++) {
+        const ox = this.x - 55 + i * 38;
+        drawPolyRound(ctx, ox, this.y + i * 2, 34, 22, 4, C.panel, C.outline);
+        ctx.fillStyle = i % 2 ? C.indigo : C.sber;
+        ctx.globalAlpha = 0.22;
+        drawPolyRound(ctx, ox + 4, this.y + 4 + i * 2, 26, 6, 2, i % 2 ? C.indigo : C.sber, null);
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = C.outline;
+        ctx.font = "bold 7px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(labels[i], ox + 17, this.y + 16 + i * 2);
       }
     }
   }
 
   class HumanApprovalGate {
-    draw(ctx, prg) {
-      if (prg < 110 || prg > 155) return;
-      const a = Math.min(1, (prg - 110) / 12);
-      ctx.save();
-      ctx.globalAlpha = a;
-      ctx.translate(0, -95);
-      drawPolyRound(ctx, -28, -12, 56, 24, 4, "#ede9fe", C.outline);
-      ctx.fillStyle = C.stamp;
-      ctx.font = "bold 9px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("HUMAN OK", 0, 2);
-      ctx.restore();
-    }
-  }
-
-  class PilotMetricsBurst {
-    draw(ctx, prg) {
-      if (prg < 165) return;
-      const lift = (prg - 165) * 0.6;
-      const alpha = prg > 195 ? 1 - (prg - 195) / 5 : 1;
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, alpha);
-      ctx.font = "900 22px Inter, sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillStyle = C.metric;
-      ctx.strokeStyle = "#fff";
-      ctx.lineWidth = 3;
-      ctx.strokeText("−81,5%", -50, -120 - lift);
-      ctx.fillText("−81,5%", -50, -120 - lift);
-      ctx.font = "900 16px Inter, sans-serif";
-      ctx.strokeText("+80% docs", 55, -105 - lift * 0.8);
-      ctx.fillText("+80% docs", 55, -105 - lift * 0.8);
-      ctx.font = "bold 10px sans-serif";
-      ctx.fillStyle = C.outline;
-      ctx.fillText("⏱ по расписанию", 0, -75 - lift * 0.5);
-      ctx.restore();
-    }
-  }
-
-  class OrchestratorHub {
-    constructor() {
-      this.phase = 0;
+    constructor(x, y) {
+      this.x = x; this.y = y;
     }
     draw(ctx) {
-      const prg = (frame * 0.04) % 240;
-      this.phase = prg;
-      const r = 55;
-      ctx.lineJoin = "round";
-      ctx.fillStyle = C.hub;
+      const phase = (frame * 0.04) % 240;
+      if (phase < 115 || phase > 195) return;
+      const local = phase - 115;
+      const sy = this.y - 40 + Math.min(1, local / 25) * 35;
+      ctx.save();
+      ctx.globalAlpha = Math.min(1, local / 15);
+      ctx.translate(this.x, sy);
+      drawPolyRound(ctx, -22, -14, 44, 28, 6, C.approve, C.outline);
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 9px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("HITL OK", 0, 2);
+      ctx.restore();
+      if (local > 20 && local < 24) createBubble(this.x, sy - 30, "Human approval перед CRM", 240);
+    }
+  }
+
+  class GigaCoworkHub {
+    constructor(x, y) {
+      this.x = x; this.y = y;
+      this.shelf = new SkillShelf(x - 70, y - 55);
+    }
+    draw(ctx) {
+      const phase = (frame * 0.04) % 240;
+      const r = 50;
+      ctx.fillStyle = C.sber;
       ctx.strokeStyle = C.outline;
       ctx.lineWidth = 2;
       ctx.beginPath();
       for (let i = 0; i < 6; i++) {
-        const ang = (Math.PI / 3) * i - Math.PI / 6;
-        const px = Math.cos(ang) * r;
-        const py = Math.sin(ang) * r * 0.85;
+        const a = (Math.PI * 2 * i) / 6 - Math.PI / 2;
+        const px = this.x + Math.cos(a) * r;
+        const py = this.y + Math.sin(a) * r;
         if (i === 0) ctx.moveTo(px, py);
         else ctx.lineTo(px, py);
       }
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
-
-      let inner = "НАВЫК";
-      if (prg > 50) inner = "MCP";
-      if (prg > 110) inner = "OK?";
-      if (prg > 165) inner = "ПИЛОТ";
-      ctx.font = "bold 11px sans-serif";
-      ctx.fillStyle = C.outline;
+      drawPolyRound(ctx, this.x - 38, this.y - 32, 76, 64, 8, C.panel, C.outline);
+      ctx.fillStyle = C.sber;
+      ctx.font = "900 11px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(inner, 0, 4);
-
-      if (prg > 25 && prg < 105) {
-        drawPolyRound(ctx, -40, 18, 80, 14, 2, C.tokenReg, C.outline);
-        ctx.font = "7px sans-serif";
-        ctx.fillText("регламент RU", 0, 28);
+      ctx.fillText("Giga", this.x, this.y - 8);
+      ctx.fillStyle = C.indigo;
+      ctx.fillText("Cowork", this.x, this.y + 8);
+      this.shelf.draw(ctx);
+      if (phase >= 175) {
+        ctx.fillStyle = C.sber;
+        ctx.font = "900 16px sans-serif";
+        ctx.fillText("−81,5%", this.x, this.y - 58);
+        ctx.font = "bold 9px sans-serif";
+        ctx.fillStyle = C.outline;
+        ctx.fillText("пилот рутины", this.x, this.y - 44);
+        if (phase > 177 && phase < 181) createBubble(this.x, this.y - 72, "Пилот: документы + HR", 260);
       }
-      if (prg > 70 && prg < 150) {
-        for (let i = 0; i < 3; i++) {
-          drawPolyRound(ctx, -50 + i * 18, -35, 14, 10, 2, [C.tokenMcp, C.tokenData, C.tokenReg][i], C.outline);
-        }
-      }
-
-      const ports = [
-        new McpPortNode(-70, -30, 0),
-        new McpPortNode(70, -25, 1),
-        new McpPortNode(-65, 35, 2),
-        new McpPortNode(68, 38, 3)
-      ];
-      ports.forEach((p) => p.draw(ctx, prg));
-
-      new HumanApprovalGate().draw(ctx, prg);
-      new PilotMetricsBurst().draw(ctx, prg);
     }
   }
 
   class Agent {
-    constructor(x, y, color, role, stepTrig, dialogs, portAngle) {
-      this.x = x;
-      this.y = y;
-      this.baseX = x;
-      this.baseY = y;
+    constructor(x, y, color, role, stepTrig, dialogs) {
+      this.x = x; this.y = y;
+      this.baseX = x; this.baseY = y;
       this.color = color;
       this.role = role;
       this.timer = Math.random() * 100;
       this.stepTrig = stepTrig;
       this.dialogs = dialogs;
-      this.portAngle = portAngle;
-      this.hitAnimation = 0;
     }
-
     draw(ctx) {
       this.timer += 0.03;
       const prg = (frame * 0.04) % 240;
       let isMoving = false;
-      let carryType = null;
       let faceDir = 1;
-      const dist = 78;
-      const targetX = Math.cos(this.portAngle) * dist;
-      const targetY = Math.sin(this.portAngle) * dist * 0.75 - 10;
-
-      if (prg >= this.stepTrig && prg < this.stepTrig + 28) {
-        const localPrg = prg - this.stepTrig;
-        if (localPrg < 12) {
+      const hubX = 120;
+      const hubY = -70;
+      const targetX = hubX + (this.stepTrig % 3) * 8 - 8;
+      const targetY = hubY + 22;
+      if (prg >= this.stepTrig && prg < this.stepTrig + 22) {
+        const local = prg - this.stepTrig;
+        if (local < 11) {
           isMoving = true;
           faceDir = 1;
-          carryType = this.color;
-          const t = localPrg / 12;
+          const t = local / 11;
           this.x = this.baseX + (targetX - this.baseX) * t;
-          this.y = this.baseY + (targetY - this.baseY) * t;
-        } else if (localPrg < 18) {
-          this.x = targetX;
-          this.y = targetY;
+          this.y = this.baseY + (targetY - this.baseY) * t + Math.sin(t * Math.PI) * -16;
         } else {
           isMoving = true;
           faceDir = -1;
-          const t = (localPrg - 18) / 10;
+          const t = (local - 11) / 11;
           this.x = targetX - (targetX - this.baseX) * t;
           this.y = targetY - (targetY - this.baseY) * t;
         }
       } else {
         this.x = this.baseX;
         this.y = this.baseY;
-        if (prg >= this.stepTrig - 8 && prg < this.stepTrig) carryType = this.color;
       }
-
       if (!isMoving && frame % 220 === 0 && Math.random() < 0.12) {
-        const rnd = this.dialogs[Math.floor(Math.random() * this.dialogs.length)];
-        createBubble(this.x, this.y - 22, rnd, 260);
+        createBubble(this.x, this.y - 22, this.dialogs[Math.floor(Math.random() * this.dialogs.length)], 240);
       }
-
-      let bob = Math.abs(Math.sin(this.timer * 3)) * 2;
-      if (!isMoving) bob = Math.sin(this.timer * 1.5);
-
+      let bob = isMoving ? Math.abs(Math.sin(this.timer * 3)) * 2 : Math.sin(this.timer * 1.5);
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.lineJoin = "round";
       let legL = 0, legR = 0;
       if (isMoving) {
-        const walkPhase = this.timer * 6;
-        legL = Math.sin(walkPhase) * 5;
-        legR = Math.sin(walkPhase + Math.PI) * 5;
+        const w = this.timer * 6;
+        legL = Math.sin(w) * 5;
+        legR = Math.sin(w + Math.PI) * 5;
       }
       drawPolyRound(ctx, -10, -5 + Math.max(0, legL), 8, 14, 2, C.outline, null);
       drawPolyRound(ctx, -12, 5 + Math.max(0, legL), 12, 6, 2, C.outline, null);
@@ -1231,85 +1242,48 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.beginPath();
       ctx.arc(hx - 3, hy - 2, 2, 0, Math.PI * 2);
       ctx.fill();
-      if (this.role === "1_architect") {
-        ctx.strokeStyle = C.outline;
-        ctx.lineWidth = 1;
-        ctx.strokeRect(hx + 1, hy - 5, 6, 6);
-        ctx.strokeRect(hx - 7, hy - 5, 6, 6);
-      } else if (this.role === "2_seo") {
-        drawPolyRound(ctx, hx - 12, hy - 14, 24, 8, [6, 6, 0, 0], C.outline, null);
-      } else if (this.role === "3_coder") {
-        ctx.fillStyle = C.outline;
-        ctx.beginPath();
-        ctx.moveTo(hx - 8, hy - 6);
-        ctx.lineTo(hx - 14, hy - 16);
-        ctx.lineTo(hx + 10, hy - 14);
-        ctx.fill();
-      } else if (this.role === "4_designer") {
-        drawPolyRound(ctx, hx - 14, hy - 12, 28, 6, 3, "#f43f5e", C.outline);
-      } else if (this.role === "5_deployer") {
-        ctx.strokeStyle = C.outline;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(hx, hy, 14, Math.PI, Math.PI * 2);
-        ctx.stroke();
-      }
       ctx.restore();
-      if (carryType) {
-        drawPolyRound(ctx, -18 * faceDir, -18 - bob, 16, 16, 2, carryType, C.outline);
-      }
       ctx.restore();
     }
   }
 
   const entities = [];
   const bubbles = [];
-  const stream = new ProtocolArcStream();
-  const hub = new OrchestratorHub();
+  const river = new RegulamentStream(-300, 95, 480);
+  const hub = new GigaCoworkHub(120, -82);
+  const ring = new McpProtocolRing(120, -82, 88);
+  const gate = new HumanApprovalGate(195, -115);
+  entities.push(river, ring, hub, gate);
+  entities.push(new Agent(-280, 55, C.agentYellow, "1", 18, ["Регламент на русском", "Навык без кода", "Workspace"]));
+  entities.push(new Agent(-200, 115, C.agentGreen, "2", 52, ["MCP → CRM", "Коннектор почты", "Логи с дня 1"]));
+  entities.push(new Agent(-110, 35, C.agentBlue, "3", 88, ["Make / n8n", "GigaChat API", "Пилот 14 дней"]));
+  entities.push(new Agent(-30, 105, C.agentPink, "4", 124, ["Human-in-the-loop", "152-ФЗ whitelist", "On-prem опция"]));
+  entities.push(new Agent(50, 30, C.agentPurple, "5", 158, ["−81,5% рутина", "+80% документы", "Масштаб агентов"]));
 
-  entities.push(new WorkspacePod(-200, -120, "HR"));
-  entities.push(new WorkspacePod(-210, 95, "Юр"));
-  entities.push(new WorkspacePod(155, -100, "CRM"));
-  entities.push(stream);
-  entities.push(hub);
-  entities.push(
-    new Agent(-240, -50, C.agentYellow, "1_architect", 18, [
-      "Регламент в навык!",
-      "Чек-лист на русском",
-      "Workspace готов"
-    ], -2.4)
-  );
-  entities.push(
-    new Agent(-220, 70, C.agentGreen, "2_seo", 58, [
-      "MCP к CRM подключён",
-      "Коннектор ERP — ок",
-      "Порт почты активен"
-    ], -1.2)
-  );
-  entities.push(
-    new Agent(-160, -90, C.agentBlue, "3_coder", 98, [
-      "Поток 1С ↔ CRM",
-      "Model Context Protocol",
-      "Сценарий n8n"
-    ], 0.2)
-  );
-  entities.push(
-    new Agent(-130, 40, C.agentPink, "4_designer", 138, [
-      "Human-in-the-loop",
-      "Логи с первого дня",
-      "152-ФЗ: whitelist"
-    ], 1.4)
-  );
-  entities.push(
-    new Agent(-100, -20, C.agentPurple, "5_deployer", 178, [
-      "Пилот 14 дней",
-      "−81,5% на процессе",
-      "Агент по расписанию"
-    ], 2.5)
-  );
-
-  function createBubble(x, y, text, customLife = 300) {
+  function createBubble(x, y, text, customLife = 280) {
     bubbles.push({ x, y, text, life: customLife, maxLife: customLife });
+  }
+
+  function drawStackOrbs(ctx) {
+    const items = [
+      { label: "Make", x: -190, c: C.indigo },
+      { label: "n8n", x: -130, c: "#ec4899" },
+      { label: "MCP", x: -70, c: C.sber },
+      { label: "API", x: -10, c: "#0ea5e9" }
+    ];
+    items.forEach((f, i) => {
+      const bob = Math.sin(frame * 0.04 + i) * 4;
+      ctx.fillStyle = f.c;
+      ctx.globalAlpha = f.label === "MCP" ? 1 : 0.5;
+      ctx.beginPath();
+      ctx.arc(f.x, -145 + bob, f.label === "MCP" ? 13 : 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 7px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(f.label, f.x, -142 + bob);
+    });
   }
 
   function engineloop() {
@@ -1318,33 +1292,22 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.save();
     ctx.translate(cx, cy);
     ctx.scale(scale, scale);
-
-    const prg = (frame * 0.04) % 240;
-    if (prg >= 16 && prg < 16.08) createBubble(-200, -60, "1. Регламент → навык");
-    if (prg >= 56 && prg < 56.08) createBubble(-180, 30, "2. MCP-коннектор");
-    if (prg >= 116 && prg < 116.08) createBubble(-120, -40, "3. Human approval");
-    if (prg >= 176 && prg < 176.08) createBubble(-90, 10, "4. Пилот live");
-
     entities.sort((a, b) => (a.y || 0) - (b.y || 0));
     entities.forEach((ent) => ent.draw(ctx));
-
+    drawStackOrbs(ctx);
     ctx.font = "bold 11px Inter, sans-serif";
     ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
     for (let i = bubbles.length - 1; i >= 0; i--) {
       const bub = bubbles[i];
       bub.life--;
-      if (bub.life <= 0) {
-        bubbles.splice(i, 1);
-        continue;
-      }
+      if (bub.life <= 0) { bubbles.splice(i, 1); continue; }
       let alpha = Math.min(1, bub.life / 30);
       if (bub.life > bub.maxLife - 10) alpha = (bub.maxLife - bub.life) / 10;
       ctx.globalAlpha = alpha;
       const tw = ctx.measureText(bub.text).width + 16;
       const th = 20;
       const bx = bub.x;
-      const by = bub.y - (bub.maxLife - bub.life) * 0.05;
+      const by = bub.y - (bub.maxLife - bub.life) * 0.04;
       drawPolyRound(ctx, bx - tw / 2, by - th, tw, th, 6, C.bubbleBg, C.outline);
       ctx.fillStyle = C.outline;
       ctx.fillText(bub.text, bx, by - th / 2);
@@ -1353,11 +1316,13 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.restore();
     requestAnimationFrame(engineloop);
   }
-
-  document.fonts.ready.then(() => engineloop());
-});
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(engineloop);
+  else engineloop();
+})();
 </script>
 </section>
+
+
 
 <section class="ym-section" id="intro" style="padding-top: 72px; padding-bottom: 40px;">
   <div class="ym-container">
