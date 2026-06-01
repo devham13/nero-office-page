@@ -185,7 +185,7 @@ def verify_live(url: str, slug: str) -> None:
     markers = (
         'id="primary"',
         f"{slug}-page",
-        "kpmg-gateway-hero-canvas",
+        "finops-hero-grid",
     )
     request = urllib.request.Request(url, headers={"User-Agent": "NeroNetworkDeploy/1.0"})
     with urllib.request.urlopen(request, timeout=20) as response:
