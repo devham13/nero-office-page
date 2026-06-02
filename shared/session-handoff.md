@@ -6,7 +6,8 @@
 - URL: [REDACTED]openai-codex-plugins-sites-dlya-biznesa/
 - Проверка: HTTP 200, main#primary, hero/boris canvas, script, meta description (wp_head в шаблоне).
 - Шаблон: `wordpress-theme/page-openai-codex-plugins-sites-dlya-biznesa.php`
-- Следующий шаг: Макс (QA) + Лёня (SEO-аудит).
+- QA (Макс): PASS — HTTP 200, main#primary, canvas×2, CTA без битых маркеров; некритично: skip-link `#main` vs `#primary`.
+- SEO (Лёня): B+, перепубликация не нужна; title + суффикс сайта, нет og:image/FAQPage schema.
 
 ## 2026-05-28 — kpmg-claude-vnedrenie-ai-276-tysyach
 
