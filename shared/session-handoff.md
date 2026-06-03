@@ -3,8 +3,9 @@
 ## 2026-06-03 — bezopasnoe-vnedrenie-generativnogo-ii-biznes
 
 - Юра: опубликовано через SFTP → `page-bezopasnoe-vnedrenie-generativnogo-ii-biznes.php` в тему kadence; WP post ID 77; live HTTP 200.
-- URL: /bezopasnoe-vnedrenie-generativnogo-ii-biznes/
-- Следующий шаг: QA (Макс) + SEO-аудит (Лёня).
+- URL: /bezopasnoe-vnedrenie-generativnogo-ii-biznes/ (live, HTTP 200)
+- QA (Макс): pass — HTTP 200, main#primary, 2 canvas, meta description; замечания: skip-link #main vs #primary, CTA target=_blank на якоря.
+- SEO (Лёня): 84/100 B+, критичных правок нет; опционально: mainEntityOfPage в JSON-LD, og:image.
 
 ## 2026-05-28 — kpmg-claude-vnedrenie-ai-276-tysyach
 
