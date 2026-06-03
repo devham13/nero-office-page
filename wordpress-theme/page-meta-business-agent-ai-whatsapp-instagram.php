@@ -792,11 +792,20 @@ nav[aria-label="Хлебные крошки"],
   position: relative;
   overflow: hidden;
   min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   background: #f8fafc;
   background-image:
     linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
+}
+.mba-inbox-hero .mba-hero-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: clamp(320px, 46vh, 560px);
+  width: 100%;
 }
 .mba-inbox-hero .mba-hero-canvas-wrap {
   position: absolute;
@@ -810,39 +819,41 @@ nav[aria-label="Хлебные крошки"],
 }
 .mba-inbox-hero .mba-hero-cta-top {
   position: absolute;
-  top: clamp(72px, 10vh, 120px);
+  top: clamp(88px, 11vh, 128px);
   right: clamp(16px, 4vw, 60px);
-  z-index: 4;
+  z-index: 6;
 }
 .mba-inbox-hero .giant-seo {
-  font-size: clamp(32px, 4.8vw, 68px);
+  font-size: clamp(26px, 3.8vw, 52px);
   font-weight: 900;
-  line-height: 1.08;
-  letter-spacing: -2px;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
   color: #0f172a;
   margin: 0;
-  max-width: min(820px, 92vw);
+  max-width: min(920px, 100%);
+  text-wrap: balance;
 }
 .mba-inbox-hero .giant-seo span {
-  display: block;
+  display: inline;
   background: linear-gradient(90deg, #25d366, #e1306c, #0088cc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .mba-inbox-hero .giant-seo-sub {
-  font-size: clamp(15px, 1.9vw, 21px);
+  font-size: clamp(15px, 1.7vw, 19px);
   line-height: 1.55;
   color: rgba(15, 23, 42, 0.72);
-  margin-top: 18px;
-  max-width: 680px;
+  margin-top: 14px;
+  max-width: 720px;
 }
 .mba-inbox-hero .mba-hero-copy {
-  position: absolute;
-  left: clamp(16px, 4vw, 60px);
-  bottom: clamp(80px, 12vh, 140px);
-  z-index: 3;
-  max-width: min(780px, 92vw);
+  position: relative;
+  flex-shrink: 0;
+  z-index: 5;
+  padding: clamp(88px, 11vh, 128px) clamp(16px, 4vw, 60px) clamp(20px, 3vh, 32px);
+  padding-right: clamp(200px, 22vw, 320px);
+  max-width: 100%;
 }
 .mba-inbox-hero .telegram-button {
   display: inline-flex;
@@ -861,13 +872,14 @@ nav[aria-label="Хлебные крошки"],
 .mba-inbox-hero .telegram-button:hover { transform: translateY(-2px); }
 .mba-inbox-hero .vl-ui-tasks {
   position: absolute;
-  left: clamp(16px, 4vw, 48px);
-  top: 50%;
-  transform: translateY(-42%);
+  left: clamp(12px, 3vw, 32px);
+  top: clamp(12px, 2vh, 24px);
+  transform: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   z-index: 3;
+  max-width: min(220px, 42vw);
 }
 .mba-inbox-hero .vl-ui-task {
   display: flex;
@@ -898,15 +910,15 @@ nav[aria-label="Хлебные крошки"],
 }
 .mba-inbox-hero .vl-ui-pill {
   position: absolute;
-  bottom: clamp(24px, 4vh, 48px);
-  right: clamp(16px, 4vw, 60px);
-  left: auto;
+  bottom: clamp(12px, 2vh, 24px);
+  right: clamp(12px, 3vw, 32px);
+  left: clamp(12px, 3vw, 32px);
   transform: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 10px;
-  max-width: min(520px, 90vw);
+  gap: 8px;
+  max-width: none;
   z-index: 3;
 }
 .mba-inbox-hero .vl-ui-pill span {
@@ -920,37 +932,42 @@ nav[aria-label="Хлебные крошки"],
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 @media (max-width: 900px) {
+  .mba-inbox-hero .mba-hero-copy {
+    padding-top: clamp(76px, 10vh, 96px);
+    padding-bottom: 8px;
+    padding-right: clamp(16px, 4vw, 60px);
+  }
+  .mba-inbox-hero .giant-seo { font-size: clamp(22px, 6.2vw, 32px); letter-spacing: -0.8px; }
+  .mba-inbox-hero .mba-hero-stage { min-height: clamp(280px, 42vh, 420px); }
   .mba-inbox-hero .vl-ui-tasks {
-    top: auto;
-    bottom: clamp(200px, 28vh, 260px);
-    transform: none;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: calc(100% - 32px);
+    max-width: calc(100% - 24px);
+    gap: 6px;
   }
-  .mba-inbox-hero .vl-ui-task { font-size: 12px; padding: 8px 12px; }
-  .mba-inbox-hero .mba-hero-copy { bottom: clamp(24px, 5vh, 48px); }
-  .mba-inbox-hero .vl-ui-pill {
-    bottom: auto;
-    top: clamp(120px, 16vh, 160px);
-    right: 16px;
-    left: 16px;
-    justify-content: flex-start;
-  }
+  .mba-inbox-hero .vl-ui-task { font-size: 11px; padding: 6px 10px; }
+  .mba-inbox-hero .vl-ui-task span { width: 22px; height: 22px; font-size: 10px; }
+  .mba-inbox-hero .vl-ui-pill { justify-content: center; }
   .mba-inbox-hero .mba-hero-cta-top {
-    top: clamp(64px, 9vh, 88px);
-    right: 16px;
-    left: 16px;
+    position: static;
+    padding: 0 clamp(16px, 4vw, 60px) 12px;
+    z-index: 6;
   }
 }
 </style>
 
-  <div class="mba-hero-canvas-wrap" aria-hidden="true">
-    <canvas id="mba-inbox-hero-canvas"></canvas>
+  <div class="mba-hero-copy">
+    <h1 id="mba-inbox-title" class="giant-seo">Meta Business Agent: <span>AI-агент для WhatsApp и Instagram</span> — что это значит для вашего бизнеса</h1>
+    <p class="giant-seo-sub">Meta начала продавать AI-агента для переписки с клиентами. Разбираем, как повторить такую автоматизацию для WhatsApp, Instagram и Telegram — и не потерять качество сервиса</p>
   </div>
 
   <div class="mba-hero-cta-top">
     <a href="<?php echo esc_url($primary_cta_url); ?>" class="telegram-button" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_html($primary_cta_label); ?> — заказать AI-агента для мессенджеров"><?php echo esc_html($primary_cta_label); ?></a>
+  </div>
+
+  <div class="mba-hero-stage">
+  <div class="mba-hero-canvas-wrap" aria-hidden="true">
+    <canvas id="mba-inbox-hero-canvas"></canvas>
   </div>
 
   <div class="vl-ui-tasks" aria-label="Этапы внедрения AI-агента">
@@ -968,10 +985,6 @@ nav[aria-label="Хлебные крошки"],
     <span>Task-specific AI</span>
     <span>Утренний briefing</span>
   </div>
-
-  <div class="mba-hero-copy">
-    <h1 id="mba-inbox-title" class="giant-seo">Meta Business Agent: <span>AI-агент для WhatsApp и Instagram</span> — что это значит для вашего бизнеса</h1>
-    <p class="giant-seo-sub">Meta начала продавать AI-агента для переписки с клиентами. Разбираем, как повторить такую автоматизацию для WhatsApp, Instagram и Telegram — и не потерять качество сервиса</p>
   </div>
 </section>
 
@@ -1454,9 +1467,9 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.height = wrap.clientHeight || window.innerHeight;
     cw = canvas.width;
     ch = canvas.height;
-    cx = cw / 2;
-    cy = ch / 2 - 20;
-    scale = cw < 768 ? cw / 520 : Math.min(cw / 960, ch / 720) * 1.35;
+    cx = cw * 0.5;
+    cy = ch * 0.48;
+    scale = cw < 768 ? Math.min(cw / 520, ch / 420) * 0.92 : Math.min(cw / 960, ch / 620) * 1.15;
   }
   window.addEventListener("resize", resizeCanvas);
   resizeCanvas();
