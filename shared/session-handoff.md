@@ -3,9 +3,9 @@
 ## 2026-06-03 — zip-mcp-superagenty-governed-ai-zakupki
 
 - Юра: опубликовано через SFTP + WP-CLI (post ID 68, тема kadence).
-- URL: /zip-mcp-superagenty-governed-ai-zakupki/
-- Проверка: HTTP 200, custom template, main#primary, canvas, script, meta description.
-- Следующий шаг: QA (Макс) + SEO-аудит (Лёня).
+- URL: [REDACTED]zip-mcp-superagenty-governed-ai-zakupki/
+- Проверка: HTTP 200, custom template, main#primary + #main (skip-link), canvas, script, meta description.
+- QA: PASS после фикса skip-link (#main); SEO (Лёня): 88/100 B+, критичных доработок нет.
 
 ## 2026-05-28 — kpmg-claude-vnedrenie-ai-276-tysyach
 
