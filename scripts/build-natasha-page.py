@@ -1,27 +1,46 @@
 #!/usr/bin/env python3
-"""Assemble page template for Natasha (meta-business-agent)."""
+"""Assemble page template for Natasha (meta-business-agent).
+
+Usage:
+  python3 scripts/build-natasha-page.py           # deploy: bake CTA from env
+  python3 scripts/build-natasha-page.py --for-git  # commit-safe: getenv() only
+"""
 from __future__ import annotations
 
-import os
+import argparse
 import re
-from pathlib import Path
-
 import sys
+from pathlib import Path
 
 PROJECT = Path("/workspace")
 sys.path.insert(0, str(PROJECT / "shared"))
 from credentials import get_credential  # noqa: E402
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--for-git",
+    action="store_true",
+    help="Emit getenv()-based CTA vars (no secrets) for repository commits",
+)
+args = parser.parse_args()
+
 slug = "meta-business-agent-whatsapp-ii-agent-prodazhi"
 page_class = f"{slug}-page"
 out_path = PROJECT / "wordpress-theme" / f"page-{slug}.php"
 
-# CTA: при сборке из env/credentials (getenv на хостинге часто пустой).
-_primary_url = get_credential("PRIMARY_CTA_URL") or "#cta-final"
-_secondary_url = get_credential("SECONDARY_CTA_URL") or _primary_url
-_primary_label = get_credential("PRIMARY_CTA_LABEL") or "Обсудить внедрение"
-_secondary_label = get_credential("SECONDARY_CTA_LABEL") or "Обучение команды"
-
-PHP_CTA_VARS = f"""
+if args.for_git:
+    PHP_CTA_VARS = """
+$nero_primary_cta_url = getenv('PRIMARY_CTA_URL') ?: '#cta-final';
+$nero_primary_cta_label = getenv('PRIMARY_CTA_LABEL') ?: 'Обсудить внедрение';
+$nero_secondary_cta_url = getenv('SECONDARY_CTA_URL') ?: $nero_primary_cta_url;
+$nero_secondary_cta_label = getenv('SECONDARY_CTA_LABEL') ?: 'Обучение команды';
+"""
+else:
+    _primary_url = get_credential("PRIMARY_CTA_URL") or "#cta-final"
+    _secondary_url = get_credential("SECONDARY_CTA_URL") or _primary_url
+    _primary_label = get_credential("PRIMARY_CTA_LABEL") or "Обсудить внедрение"
+    _secondary_label = get_credential("SECONDARY_CTA_LABEL") or "Обучение команды"
+    PHP_CTA_VARS = f"""
 $nero_primary_cta_url = {_primary_url!r};
 $nero_primary_cta_label = {_primary_label!r};
 $nero_secondary_cta_url = {_secondary_url!r};
@@ -68,49 +87,52 @@ artur_section = handoff.split("=== АРТУР (CTA И РЕКЛАМА) ===")[1].s
 cta_blocks = re.findall(r"```html\n(.*?)```", artur_section, re.DOTALL)
 
 
-def php_cta_html(html: str) -> str:
-    """Convert Artur placeholders to inline PHP echoes."""
-    html = re.sub(
-        r'href="\[REDACTED\]"',
-        'href="<?php echo esc_url($nero_primary_cta_url); ?>"',
+def normalize_cta_hrefs(html: str) -> str:
+    """Force CTA links through PHP variables (git-safe, no baked URLs)."""
+    # Attribute order varies (style before href); avoid [^>]* when href may contain ?>.
+
+    def _fix_btn(pattern: str, href_var: str, label_var: str, source: str) -> str:
+        def repl(match: re.Match[str]) -> str:
+            tag = match.group(0)
+            tag = re.sub(r'href="[^"]*"', f'href="<?php echo esc_url({href_var}); ?>"', tag, count=1)
+            tag = re.sub(
+                r"<span>[^<]*</span>",
+                f"<span><?php echo esc_html({label_var}); ?></span>",
+                tag,
+                count=1,
+            )
+            return tag
+
+        return re.sub(pattern, repl, source, flags=re.DOTALL)
+
+    html = _fix_btn(
+        r'<a class="ym-btn ym-btn-primary".*?</a>',
+        "$nero_primary_cta_url",
+        "$nero_primary_cta_label",
         html,
-        count=0,
     )
-    # First primary button label
-    html = re.sub(
-        r'(<a class="ym-btn ym-btn-primary"[^>]*><span>)\[REDACTED\](</span>)',
-        r'\1<?php echo esc_html($nero_primary_cta_label); ?>\2',
-        html,
-        count=1,
-    )
-    html = re.sub(
-        r'(<a class="ym-btn ym-btn-primary"[^>]*><span>)\[REDACTED\](</span>)',
-        r'\1<?php echo esc_html($nero_primary_cta_label); ?>\2',
+    html = _fix_btn(
+        r'<a class="ym-btn ym-btn-secondary".*?</a>',
+        "$nero_secondary_cta_url",
+        "$nero_secondary_cta_label",
         html,
     )
-    # Secondary button in final CTA
-    html = re.sub(
-        r'(<a class="ym-btn ym-btn-secondary"[^>]*href=")\[REDACTED\](")',
-        r'\1<?php echo esc_url($nero_secondary_cta_url); ?>"',
-        html,
-        count=1,
-    )
-    html = re.sub(
-        r'(<a class="ym-btn ym-btn-secondary"[^>]*><span>)\[REDACTED\](</span>)',
-        r'\1<?php echo esc_html($nero_secondary_cta_label); ?>\2',
-        html,
-        count=1,
-    )
-    html = html.replace("[REDACTED]", "<?php echo esc_html($nero_primary_cta_label); ?>")
     return html
 
 
+def php_cta_html(html: str) -> str:
+    """Convert Artur CTA markup to PHP-backed URLs and labels."""
+    return normalize_cta_hrefs(html)
+
+
 def php_cta_inline_secondary(html: str) -> str:
-    return re.sub(
-        r'<a href="[^"]*"[^>]*>\[REDACTED\]</a>',
-        '<a href="<?php echo esc_url($nero_secondary_cta_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($nero_secondary_cta_label); ?></a>',
+    html = re.sub(
+        r'(<a href=")[^"]*(" target="_blank" rel="noopener noreferrer">)[^<]*(</a>)',
+        r'\1<?php echo esc_url($nero_secondary_cta_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($nero_secondary_cta_label); ?>\3',
         html,
+        count=1,
     )
+    return html
 
 
 cta_mid = php_cta_html(cta_blocks[0]) if cta_blocks else ""
@@ -470,6 +492,9 @@ json_ld = """{
   ]
 }"""
 
+if args.for_git:
+    hero_html = normalize_cta_hrefs(hero_html)
+
 php = f"""<?php
 /**
  * Template Name: Meta Business Agent WhatsApp II Agent Prodazhi
@@ -556,4 +581,5 @@ get_footer();
 out_path.parent.mkdir(parents=True, exist_ok=True)
 out_path.write_text(php, encoding="utf-8")
 size = out_path.stat().st_size
-print(f"Wrote {out_path} ({size} bytes)")
+mode = "git-safe" if args.for_git else "deploy"
+print(f"Wrote {out_path} ({size} bytes, {mode})")
