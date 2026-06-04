@@ -2,6 +2,7 @@
 """Assemble page-microsoft-work-iq-api-agenty-m365.php (Natasha)."""
 from __future__ import annotations
 
+import argparse
 import re
 from pathlib import Path
 
@@ -74,6 +75,8 @@ def md_to_html(md: str) -> str:
 
 
 def apply_cta(html: str, env: dict[str, str]) -> str:
+    if env.get("_git_template"):
+        return html
     primary = env.get("PRIMARY_CTA_URL", "")
     primary_label = env.get("PRIMARY_CTA_LABEL", "Оставить заявку")
     secondary = env.get("SECONDARY_CTA_URL", "")
@@ -93,10 +96,14 @@ def apply_cta(html: str, env: dict[str, str]) -> str:
 
 
 def cta_secondary(env: dict[str, str]) -> str:
-    u = env.get("SECONDARY_CTA_URL", "")
-    l = env.get("SECONDARY_CTA_LABEL", "")
-    sep = "&" if "?" in u else "?"
-    href = f'{u}{sep}{UTM}' if u else "#"
+    if env.get("_git_template"):
+        href = f"[SECONDARY_CTA_URL]?{UTM}"
+        l = "[SECONDARY_CTA_LABEL]"
+    else:
+        u = env.get("SECONDARY_CTA_URL", "")
+        l = env.get("SECONDARY_CTA_LABEL", "")
+        sep = "&" if "?" in u else "?"
+        href = f"{u}{sep}{UTM}" if u else "#"
     return f'''<aside class="ym-cta-panel reveal ym-section-alt" aria-label="Обучение и автоматизация">
   <div class="ym-container">
     <div class="ym-card" style="max-width:920px;margin:0 auto;padding:clamp(24px,4vw,40px);">
@@ -112,10 +119,14 @@ def cta_secondary(env: dict[str, str]) -> str:
 
 
 def cta_primary_mid(env: dict[str, str]) -> str:
-    u = env.get("PRIMARY_CTA_URL", "")
-    l = env.get("PRIMARY_CTA_LABEL", "")
-    sep = "&" if "?" in u else "?"
-    href = f'{u}{sep}{UTM}' if u else "#"
+    if env.get("_git_template"):
+        href = f"[PRIMARY_CTA_URL]?{UTM}"
+        l = "[PRIMARY_CTA_LABEL]"
+    else:
+        u = env.get("PRIMARY_CTA_URL", "")
+        l = env.get("PRIMARY_CTA_LABEL", "")
+        sep = "&" if "?" in u else "?"
+        href = f"{u}{sep}{UTM}" if u else "#"
     return f'''<aside class="ym-cta-panel reveal" aria-label="Консультация Nero Network">
   <div class="ym-container">
     <div class="ym-card" style="max-width:920px;margin:0 auto;padding:clamp(24px,4vw,40px);border-left:4px solid var(--ym-primary);">
@@ -135,14 +146,19 @@ def cta_primary_mid(env: dict[str, str]) -> str:
 
 
 def cta_footer(env: dict[str, str]) -> str:
-    pu = env.get("PRIMARY_CTA_URL", "")
-    pl = env.get("PRIMARY_CTA_LABEL", "")
-    su = env.get("SECONDARY_CTA_URL", "")
-    sl = env.get("SECONDARY_CTA_LABEL", "")
-    sep_p = "&" if "?" in pu else "?"
-    sep_s = "&" if "?" in su else "?"
-    href_p = f'{pu}{sep_p}{UTM}' if pu else "#"
-    href_s = f'{su}{sep_s}{UTM}' if su else "#"
+    if env.get("_git_template"):
+        href_p = f"[PRIMARY_CTA_URL]?{UTM}"
+        href_s = f"[SECONDARY_CTA_URL]?{UTM}"
+        pl, sl = "[PRIMARY_CTA_LABEL]", "[SECONDARY_CTA_LABEL]"
+    else:
+        pu = env.get("PRIMARY_CTA_URL", "")
+        pl = env.get("PRIMARY_CTA_LABEL", "")
+        su = env.get("SECONDARY_CTA_URL", "")
+        sl = env.get("SECONDARY_CTA_LABEL", "")
+        sep_p = "&" if "?" in pu else "?"
+        sep_s = "&" if "?" in su else "?"
+        href_p = f"{pu}{sep_p}{UTM}" if pu else "#"
+        href_s = f"{su}{sep_s}{UTM}" if su else "#"
     return f'''<aside class="ym-cta-panel reveal ym-section-alt" aria-label="Заявка на внедрение">
   <div class="ym-container">
     <div class="ym-card" style="max-width:960px;margin:0 auto;padding:clamp(28px,5vw,48px);text-align:center;">
@@ -320,7 +336,17 @@ def faq_section(faq_md: str) -> str:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Assemble Work IQ page PHP template")
+    parser.add_argument(
+        "--git-template",
+        action="store_true",
+        help="Emit CTA placeholders for git (no env secret values)",
+    )
+    args = parser.parse_args()
+
     env = load_env()
+    if args.git_template:
+        env["_git_template"] = "1"
     handoff = (ROOT / ".cursor/nero-network-handoff.md").read_text(encoding="utf-8")
     hero = extract_fence(ROOT / ".cursor/nero-network-fragments/alina.md")
     boris = extract_fence(ROOT / ".cursor/nero-network-fragments/boris.md")
@@ -467,7 +493,8 @@ echo wp_json_encode([
 {json_ld}
 """
 
-    html_content = apply_cta(html_content, env)
+    if not env.get("_git_template"):
+        html_content = apply_cta(html_content, env)
 
     php_header = """<?php
 /**
@@ -494,10 +521,11 @@ get_header();
 """
 
     php_footer = "\n<?php get_footer(); ?>\n"
-    out_path = ROOT / "wordpress-theme" / f"page-{SLUG}.php"
+    out_dir = ROOT / "wordpress" if env.get("_git_template") else ROOT / "wordpress-theme"
+    out_path = out_dir / f"page-{SLUG}.php"
     out_path.write_text(php_header + html_content + php_footer, encoding="utf-8")
 
-  # stats
+    # stats
     size = len(html_content.encode("utf-8"))
     print(f"Wrote {out_path}")
     print(f"HTML bytes: {size}")
