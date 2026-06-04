@@ -25,6 +25,12 @@ SEO_DESC = (
     "разбор релиза 2 июня 2026."
 )
 
+# Placeholders substituted at deploy time (see shared/deploy.py).
+PRIMARY_CTA_URL = "%%NERO_PRIMARY_CTA_URL%%"
+PRIMARY_CTA_LABEL = "%%NERO_PRIMARY_CTA_LABEL%%"
+SECONDARY_CTA_URL = "%%NERO_SECONDARY_CTA_URL%%"
+SECONDARY_CTA_LABEL = "%%NERO_SECONDARY_CTA_LABEL%%"
+
 
 def extract_codeblock(handoff: str, start_marker: str, lang: str = "html") -> str:
     idx = handoff.find(start_marker)
@@ -460,10 +466,10 @@ def main() -> None:
 $page_seo_title = {SEO_TITLE!r};
 $page_seo_description = {SEO_DESC!r};
 
-$nero_primary_cta_url = getenv('PRIMARY_CTA_URL') ?: '#';
-$nero_primary_cta_label = getenv('PRIMARY_CTA_LABEL') ?: 'Заявка на консультацию';
-$nero_secondary_cta_url = getenv('SECONDARY_CTA_URL') ?: '#';
-$nero_secondary_cta_label = getenv('SECONDARY_CTA_LABEL') ?: 'Обучение';
+$nero_primary_cta_url = {PRIMARY_CTA_URL!r};
+$nero_primary_cta_label = {PRIMARY_CTA_LABEL!r};
+$nero_secondary_cta_url = {SECONDARY_CTA_URL!r};
+$nero_secondary_cta_label = {SECONDARY_CTA_LABEL!r};
 
 add_filter('document_title_parts', static function (array $parts) use ($page_seo_title): array {{
     $parts['title'] = $page_seo_title;

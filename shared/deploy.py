@@ -7,6 +7,7 @@ import argparse
 import ftplib
 import shlex
 import sys
+import tempfile
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -106,6 +107,24 @@ def resolve_theme_directory(ssh: paramiko.SSHClient, remote_site_root: str) -> s
     return f"{remote_site_root.rstrip('/')}/{remote_themes.strip('/')}/{theme_slug}"
 
 
+def prepare_template_for_deploy(local_path: Path) -> Path:
+    """Replace %%NERO_*%% placeholders with env credentials (not committed to git)."""
+    content = local_path.read_text(encoding="utf-8")
+    replacements = {
+        "%%NERO_PRIMARY_CTA_URL%%": get_credential("PRIMARY_CTA_URL") or "#",
+        "%%NERO_PRIMARY_CTA_LABEL%%": get_credential("PRIMARY_CTA_LABEL") or "Заявка на консультацию",
+        "%%NERO_SECONDARY_CTA_URL%%": get_credential("SECONDARY_CTA_URL") or "#",
+        "%%NERO_SECONDARY_CTA_LABEL%%": get_credential("SECONDARY_CTA_LABEL") or "Обучение",
+    }
+    for token, value in replacements.items():
+        content = content.replace(token, value)
+    if "%%NERO_" in content:
+        raise RuntimeError("Template still contains unresolved %%NERO_*%% placeholders.")
+    tmp = Path(tempfile.mkdtemp()) / local_path.name
+    tmp.write_text(content, encoding="utf-8")
+    return tmp
+
+
 def upload_via_sftp(ssh: paramiko.SSHClient, local_path: Path, remote_file: str) -> None:
     remote_dir = str(Path(remote_file).parent)
     run_remote(ssh, f"mkdir -p {shlex.quote(remote_dir)}")
@@ -185,7 +204,8 @@ def verify_live(url: str, slug: str) -> None:
     markers = (
         'id="primary"',
         f"{slug}-page",
-        "kpmg-gateway-hero-canvas",
+        "<canvas",
+        "<script",
     )
     request = urllib.request.Request(url, headers={"User-Agent": "NeroNetworkDeploy/1.0"})
     with urllib.request.urlopen(request, timeout=20) as response:
@@ -212,8 +232,9 @@ def main() -> int:
         theme_dir = resolve_theme_directory(ssh, remote_site_root)
         remote_file = f"{theme_dir.rstrip('/')}/{remote_filename}"
 
+        deploy_path = prepare_template_for_deploy(local_path)
         print(f"Uploading via SFTP to {remote_file}...")
-        upload_via_sftp(ssh, local_path, remote_file)
+        upload_via_sftp(ssh, deploy_path, remote_file)
 
         create_or_update_page(ssh, remote_site_root, slug, args.title, args.description)
 

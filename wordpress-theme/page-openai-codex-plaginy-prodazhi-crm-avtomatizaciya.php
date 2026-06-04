@@ -5,10 +5,10 @@
 $page_seo_title = 'OpenAI Codex для продаж и CRM: плагины Sites — гайд 2026';
 $page_seo_description = 'Плагины Codex для продаж и CRM: Salesforce, HubSpot, amoCRM. Как SMB автоматизирует сделки через Make, n8n и MCP без разработчиков — разбор релиза 2 июня 2026.';
 
-$nero_primary_cta_url = getenv('PRIMARY_CTA_URL') ?: '#';
-$nero_primary_cta_label = getenv('PRIMARY_CTA_LABEL') ?: 'Заявка на консультацию';
-$nero_secondary_cta_url = getenv('SECONDARY_CTA_URL') ?: '#';
-$nero_secondary_cta_label = getenv('SECONDARY_CTA_LABEL') ?: 'Обучение';
+$nero_primary_cta_url = '%%NERO_PRIMARY_CTA_URL%%';
+$nero_primary_cta_label = '%%NERO_PRIMARY_CTA_LABEL%%';
+$nero_secondary_cta_url = '%%NERO_SECONDARY_CTA_URL%%';
+$nero_secondary_cta_label = '%%NERO_SECONDARY_CTA_LABEL%%';
 
 add_filter('document_title_parts', static function (array $parts) use ($page_seo_title): array {
     $parts['title'] = $page_seo_title;
