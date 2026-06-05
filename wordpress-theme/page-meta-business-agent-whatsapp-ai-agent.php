@@ -905,9 +905,11 @@ nav[aria-label="Хлебные крошки"],
 }
 @media (max-width: 768px) {
   .mba-hero .vl-ui-tasks { display: none; }
-  .mba-hero-copy { bottom: 16px; }
-  .mba-hero-cta { top: auto; bottom: 140px; right: 16px; }
-  .mba-hero .vl-ui-pill { top: 12px; }
+  .mba-hero-copy { bottom: 88px; left: 16px; right: 16px; max-width: none; }
+  .mba-hero-cta { top: auto; bottom: 20px; left: 16px; right: 16px; }
+  .mba-hero-cta .telegram-button { display: block; text-align: center; width: 100%; box-sizing: border-box; }
+  .mba-hero .giant-seo { font-size: clamp(1.35rem, 6vw, 1.75rem); line-height: 1.2; }
+  .mba-hero .vl-ui-pill { top: 12px; left: 12px; right: 12px; justify-content: center; flex-wrap: wrap; }
 }
 </style>
 
